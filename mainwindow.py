@@ -91,7 +91,7 @@ class MainWindow():
 
 
   def _combo_platform_changed(self, value: str):
-    self._switch_disabled_frame("all", True)
+    self._reset_values()
     platform_id = PLATFORM_IDENTIFIERS[value]
     self.window['text_platform'].update(platform_id)
     thread = Thread(target=scrapper.download_platform_data, args=(platform_id,), daemon=True)
@@ -131,6 +131,19 @@ class MainWindow():
       if current_value < pb.MaxValue: current_value+=1
       else: current_value = 0
     pb.update(current_value)
+
+
+  def _reset_values(self):
+    self._switch_disabled_frame("all", True)
+    self.window['text_platform'].update("n/a")
+    self.window['progress_bar_fetch'].update(0)
+    self.window['text_games_count'].update("n/a")
+    self.window['input_search_game'].update("")
+    self.window['text_search_game'].update("n/a")
+    self.window['combo_select_game'].update([])
+    self.window['text_select_game'].update("n/a")
+    self.window['progress_bar_download'].update(0)
+    self.window['output_folder'].update("")
 
 
   def _switch_disabled_frame(self, frame: str, make_disabled: bool):
