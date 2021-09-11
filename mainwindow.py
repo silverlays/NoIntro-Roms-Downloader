@@ -17,17 +17,14 @@ class MainWindow():
 
   def show(self):
     self.window = self._create_window()
-    #self.window['input_search_game'].bind("<Return>", lambda: self.window['search_button'].click())
     self.window['input_search_game'].bind("<Return>", "::RETURN")
     self._disable_frame("all")
 
     while True:
       event, values = self.window.read()
-      #print(event)
-      #print(values)
 
       if event == sg.WIN_CLOSED: break
-      
+
       if event == "combo_platform":
         self._disable_frame("all")
 
@@ -41,20 +38,20 @@ class MainWindow():
         self._update_progress_bar(self.window['progress_bar_fetch'], finished=True)
         self.window['text_games_count'].update(len(scrapper.platform_games_buffer))
         self._enable_frame("frame2")
-      
+
       if (event == "search_button" or event == "input_search_game::RETURN") and self.window['input_search_game'] != "":
         games_count = scrapper.search_game(values['input_search_game'])
         self.window['text_search_game'].update(games_count)
         self._enable_frame("frame3")
         self.window['combo_select_game'].update(values=[game for game in scrapper.games_found])
-      
+
       if event == "select_button":
         self.window['text_select_game'].update(values['combo_select_game'])
         self._enable_frame("frame4")
-      
+
       if event == "output_folder":
         self._enable_frame("frame5")
-      
+
       if event == "download_button":
         thread = Thread(target=scrapper.download_file, args=(self.window['text_platform'].DisplayText, self.window['text_select_game'].DisplayText, values['output_folder'],))
         thread.start()
@@ -98,7 +95,7 @@ class MainWindow():
     ]
 
     return sg.Window(__PROGRAM_TITLE__, layout, finalize=True)
-  
+
 
   def _update_progress_bar(self, pb: sg.ProgressBar, finished=False):
     if pb.Key == "progress_bar_fetch":
@@ -114,7 +111,7 @@ class MainWindow():
         else: self.pb_download_value = 0
       pb.update(self.pb_download_value)
 
-  
+
   def _disable_frame(self, frame: str):
     if frame == "frame2" or frame == "all":
       self.window['input_search_game'].update(disabled=True)
@@ -126,7 +123,7 @@ class MainWindow():
       self.window['output_folder'].update(disabled=True)
       self.window['browse_button'].update(disabled=True)
     if frame == "frame5" or frame == "all":
-      self.window['download_button'].update(disabled=True)      
+      self.window['download_button'].update(disabled=True)
       
   
   def _enable_frame(self, frame: str):
