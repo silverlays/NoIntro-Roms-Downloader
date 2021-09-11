@@ -1,12 +1,34 @@
 import PySimpleGUI as sg
 import time
-import platforms
 import scrapper
 from threading import Thread
 
 
 __PROGRAM_VERSION__ = "1.0"
 __PROGRAM_TITLE__ = f"NoIntro Roms Downloader v{__PROGRAM_VERSION__}"
+
+PLATFORM_IDENTIFIERS = {
+  "Atari 2600": "nointro.atari-2600",
+  "Atari 5200": "nointro.atari-5200",
+  "Atari 7800": "nointro.atari-7800",
+  "Nintendo - e-Reader": "nointro.e-reader",
+  "Nintendo - Family Computer Disk System": "nointro.fds",
+  "Nintendo - Game Boy": "nointro.gb",
+  "Nintendo - Game Boy Advance": "nointro.gba",
+  "Nintendo - Game Boy Advance (Multiboot)": "nointro.gba-multiboot",
+  "Nintendo - Game Boy Color": "nointro.gbc",
+  "Nintendo - Nintendo 64": "nointro.n64",
+  "Nintendo - Nintendo 64DD": "nointro.n64dd",
+  "Nintendo - Nintendo Entertainment System": "nointro.nes",
+  "Nintendo - Pokemon-Mini": "nointro.poke-mini",
+  "Nintendo - Super Nintendo Entertainment System (Combined)": "nointro.snes",
+  "Nintendo - Virtual Boy": "nointro.vb",
+  "NEC - PC Engine - TurboGrafx 16": "nointro.tg-16",
+  "Sega - 32X": "nointro.32x",
+  "Sega - Game Gear": "nointro.gg",
+  "Sega - Master System - Mark III": "nointro.ms-mkiii",
+  "Sega - Mega Drive - Genesis": "nointro.md",
+}
 
 
 class MainWindow():
@@ -15,50 +37,21 @@ class MainWindow():
       self.pb_fetch_value = 0
       self.pb_download_value = 0
 
+
   def show(self):
     self.window = self._create_window()
     self.window['input_search_game'].bind("<Return>", "::RETURN")
-    self._disable_frame("all")
+    self._switch_disabled_frame("all", True)
 
     while True:
       event, values = self.window.read()
 
       if event == sg.WIN_CLOSED: break
-
-      if event == "combo_platform":
-        self._disable_frame("all")
-
-        platform_id = platforms.PLATFORM_IDENTIFIERS[values['combo_platform']]
-        self.window['text_platform'].update(platform_id)
-        thread = Thread(target=scrapper.download_platform_data, args=(platform_id,), daemon=True)
-        thread.start()
-        while thread.is_alive():
-          self._update_progress_bar(self.window['progress_bar_fetch'])
-          time.sleep(0.5)
-        self._update_progress_bar(self.window['progress_bar_fetch'], finished=True)
-        self.window['text_games_count'].update(len(scrapper.platform_games_buffer))
-        self._enable_frame("frame2")
-
-      if (event == "search_button" or event == "input_search_game::RETURN") and self.window['input_search_game'] != "":
-        games_count = scrapper.search_game(values['input_search_game'])
-        self.window['text_search_game'].update(games_count)
-        self._enable_frame("frame3")
-        self.window['combo_select_game'].update(values=[game for game in scrapper.games_found])
-
-      if event == "select_button":
-        self.window['text_select_game'].update(values['combo_select_game'])
-        self._enable_frame("frame4")
-
-      if event == "output_folder":
-        self._enable_frame("frame5")
-
-      if event == "download_button":
-        thread = Thread(target=scrapper.download_file, args=(self.window['text_platform'].DisplayText, self.window['text_select_game'].DisplayText, values['output_folder'],))
-        thread.start()
-        while thread.is_alive():
-          self._update_progress_bar(self.window['progress_bar_download'])
-          time.sleep(0.5)
-        self._update_progress_bar(self.window['progress_bar_download'], finished=True)
+      if event == "combo_platform": self._combo_platform_changed(values['combo_platform'])
+      if (event == "search_button" or event == "input_search_game::RETURN") and self.window['input_search_game'] != "": self._search_button_clicked(values['input_search_game'])
+      if event == "select_button": self._select_button_clicked(values['combo_select_game'])
+      if event == "output_folder": self._switch_disabled_frame("frame5", False)
+      if event == "download_button": self._download_button_clicked(values['output_folder'])
 
 
   def _create_window(self):
@@ -97,52 +90,63 @@ class MainWindow():
     return sg.Window(__PROGRAM_TITLE__, layout, finalize=True)
 
 
-  def _update_progress_bar(self, pb: sg.ProgressBar, finished=False):
-    if pb.Key == "progress_bar_fetch":
-      if finished: self.pb_fetch_value = pb.MaxValue
-      else:
-        if self.pb_fetch_value < pb.MaxValue: self.pb_fetch_value+=1
-        else: self.pb_fetch_value = 0
-      pb.update(self.pb_fetch_value)
-    elif pb.Key == "progress_bar_download":
-      if finished: self.pb_download_value = pb.MaxValue
-      else:
-        if self.pb_download_value < pb.MaxValue: self.pb_download_value+=1
-        else: self.pb_download_value = 0
-      pb.update(self.pb_download_value)
+  def _combo_platform_changed(self, value: str):
+    self._switch_disabled_frame("all", True)
+    platform_id = PLATFORM_IDENTIFIERS[value]
+    self.window['text_platform'].update(platform_id)
+    thread = Thread(target=scrapper.download_platform_data, args=(platform_id,), daemon=True)
+    thread.start()
+    while thread.is_alive():
+      self._update_progress_bar(self.window['progress_bar_fetch'], self.pb_fetch_value)
+      time.sleep(0.5)
+    self._update_progress_bar(self.window['progress_bar_fetch'], self.pb_fetch_value, finished=True)
+    self.window['text_games_count'].update(len(scrapper.platform_games_buffer))
+    self._switch_disabled_frame("frame2", False)
 
 
-  def _disable_frame(self, frame: str):
+  def _search_button_clicked(self, value: str):
+    games_count = scrapper.search_game(value)
+    self.window['text_search_game'].update(games_count)
+    self._switch_disabled_frame("frame3", False)
+    self.window['combo_select_game'].update(values=[game for game in scrapper.games_found])
+
+
+  def _select_button_clicked(self, value: str):
+    self.window['text_select_game'].update(value)
+    self._switch_disabled_frame("frame4", False)
+
+
+  def _download_button_clicked(self, value: str):
+    thread = Thread(target=scrapper.download_file, args=(self.window['text_platform'].DisplayText, self.window['text_select_game'].DisplayText, value,))
+    thread.start()
+    while thread.is_alive():
+      self._update_progress_bar(self.window['progress_bar_download'], self.pb_download_value)
+      time.sleep(0.5)
+    self._update_progress_bar(self.window['progress_bar_download'], self.pb_download_value, finished=True)
+
+
+  def _update_progress_bar(self, pb: sg.ProgressBar, current_value: int, finished=False):
+    if finished: current_value = pb.MaxValue
+    else:
+      if current_value < pb.MaxValue: current_value+=1
+      else: current_value = 0
+    pb.update(current_value)
+
+
+  def _switch_disabled_frame(self, frame: str, make_disabled: bool):
     if frame == "frame2" or frame == "all":
-      self.window['input_search_game'].update(disabled=True)
-      self.window['search_button'].update(disabled=True)
+      self.window['input_search_game'].update(disabled=make_disabled)
+      self.window['search_button'].update(disabled=make_disabled)
     if frame == "frame3" or frame == "all":
-      self.window['combo_select_game'].update(disabled=True)
-      self.window['select_button'].update(disabled=True)
+      self.window['combo_select_game'].update(disabled=make_disabled)
+      self.window['select_button'].update(disabled=make_disabled)
     if frame == "frame4" or frame == "all":
-      self.window['output_folder'].update(disabled=True)
-      self.window['browse_button'].update(disabled=True)
+      self.window['output_folder'].update(disabled=make_disabled)
+      self.window['browse_button'].update(disabled=make_disabled)
     if frame == "frame5" or frame == "all":
-      self.window['download_button'].update(disabled=True)
-      
-  
-  def _enable_frame(self, frame: str):
-    if frame == "frame2" or frame == "all":
-      self.window['input_search_game'].update(disabled=False)
-      self.window['search_button'].update(disabled=False)
-    if frame == "frame3" or frame == "all":
-      self.window['combo_select_game'].update(disabled=False)
-      self.window['select_button'].update(disabled=False)
-    if frame == "frame4" or frame == "all":
-      self.window['output_folder'].update(disabled=False)
-      self.window['browse_button'].update(disabled=False)
-    if frame == "frame5" or frame == "all":
-      self.window['download_button'].update(disabled=False)
+      self.window['download_button'].update(disabled=make_disabled)
 
 
   @property
   def AvailablePlatforms(self):
-    list = []
-    for platform in platforms.PLATFORM_IDENTIFIERS:
-      list.append(platform)
-    return list
+    return [platform for platform in PLATFORM_IDENTIFIERS]
