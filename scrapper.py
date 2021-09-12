@@ -1,10 +1,8 @@
-import asyncio
-from asyncio.streams import StreamReader, StreamWriter
 from http.client import HTTPResponse
 import PySimpleGUI as sg
 import os
 import math
-from urllib.request import urlopen, urlretrieve
+from urllib.request import urlopen
 from urllib.parse import quote
 from urllib.error import HTTPError
 from bs4 import BeautifulSoup

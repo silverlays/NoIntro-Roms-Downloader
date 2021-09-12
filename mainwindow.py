@@ -1,7 +1,5 @@
-import asyncio
 import os
 import PySimpleGUI as sg
-import time
 import scrapper
 from threading import Thread
 
@@ -144,8 +142,7 @@ class MainWindow():
 
 
   def _download_button_clicked_callback(self):
-    print("FINISH")
-    #sg.popup_quick("FINISH")
+    sg.popup_quick("FINISH", font=("", 24))
 
 
   def _reset_values(self):
