@@ -12,7 +12,6 @@ class WindowGameInfo():
     self.game_md5 = str(games.game_info(filename)['md5']).upper()
     self.game_crc32 = str(games.game_info(filename)['crc32']).upper()
     self.game_sha1 = str(games.game_info(filename)['sha1']).upper()
-    pass
 
 
   def show(self):

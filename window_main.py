@@ -1,10 +1,10 @@
 import os
 import threading
 import PySimpleGUI as sg
-from window_game_info  import WindowGameInfo
 import archive_platforms as platforms
 import archive_games as games
 import archive_download as download
+from window_game_info  import WindowGameInfo
 
 
 __PROGRAM_VERSION__ = "1.2"
@@ -30,7 +30,7 @@ class WindowMain():
       if event == "__TIMEOUT__": pass
       if event == "combo_platforms": self._combo_platforms_clicked(values['combo_platforms'])
       if event == "listbox_games": self._listbox_games_select_changed(values['listbox_games'])
-      if event == "listbox_games::DBLCLICK": self._listbox_games_double_click(values['listbox_games'][0])
+      if event == "listbox_games::DBLCLICK" and len(values['listbox_games']) > 0: self._listbox_games_double_click(values['listbox_games'][0])
       if event == "input_filter::RETURN": self._input_filter_returned(values['input_filter'])
       if event == "button_clear": self._button_clear_pressed()
       if event == "button_download": self._button_download_pressed(values['listbox_games'], values['input_output_folder'])
@@ -52,7 +52,7 @@ class WindowMain():
       [sg.HorizontalSeparator()],
       [sg.Text("Progress:"), sg.ProgressBar(10, key="progressbar_download", size=(0, 20), expand_x=True), sg.Text("0Kb / 0Kb", key="text_download")],
       [sg.HorizontalSeparator()],
-      [sg.StatusBar("Ready...", key="statusbar_status", justification="center", relief=sg.RELIEF_RAISED)]
+      [sg.StatusBar("Ready!", key="statusbar_status", justification="center", relief=sg.RELIEF_RAISED, expand_x=True, auto_size_text=False)]
     ]
 
     self.window = sg.Window(__PROGRAM_TITLE__, frame_layout, size=(550, 460), finalize=True, resizable=True)
@@ -98,9 +98,9 @@ class WindowMain():
 
 
   def _button_download_pressed(self, selected_games: list, output_folder: str):
-      thread =threading.Thread(target=download.download_files, args=(self.platform_id, selected_games, output_folder, self.window['progressbar_download'], self.window['text_download'], self._download_callback))
+      thread =threading.Thread(target=download.download_files, args=(self.platform_id, selected_games, output_folder, self.window['progressbar_download'], self.window['statusbar_status'], self.window['text_download'], self._download_callback))
       thread.start()
 
 
-  def _download_callback(self):
-    self.window['statusbar_status'].update("FINISH !")
+  def _download_callback(self, count: int):
+    self.window['statusbar_status'].update(f"Download completed! ({count}/{count})")

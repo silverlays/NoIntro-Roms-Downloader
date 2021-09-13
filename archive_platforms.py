@@ -18,7 +18,7 @@ for platform in json.load(_platforms_request)['response']['docs']:
   platform['title'] = str(platform['title'])[0:str(platform['title']).rfind(' (')].removeprefix("[No-Intro] ")
   platform['title'] = f"{platform['title']} ({platform_updated_time})"
   platforms_dict[platform['title']] = platform['identifier']
-pass
+
 
 def download_platform_details(platform_id: str) -> dict:
   import json
