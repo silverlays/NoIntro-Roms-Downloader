@@ -1,48 +1,48 @@
-from http.client import HTTPResponse
 import PySimpleGUI as sg
 import os
 import math
+import json
+from http.client import HTTPResponse
 from urllib.request import urlopen
 from urllib.parse import quote
 from urllib.error import HTTPError
-from bs4 import BeautifulSoup
-from bs4.element import SoupStrainer, Tag
 
 
 _base_url = "https://archive.org/download"
-platform_games_buffer = []
-games_found = []
+platforms_list = {}
+platform_details = {}
+games_found = {}
 
 
-def download_platform_data(platform_id: str, cb_progressbar: sg.ProgressBar, cb_function):
-  global platform_games_buffer
-  dom: BeautifulSoup = None
-  internaL_count = 0
-  internal_max = 100
+def download_platforms() -> dict:
+  global platforms_list
+  json_url = "https://archive.org/advancedsearch.php?q=identifier%3Anointro.*&fl%5B%5D=identifier&fl%5B%5D=title&sort%5B%5D=titleSorter+asc&sort%5B%5D=&sort%5B%5D=&rows=2000&page=1&output=json"
+  request: HTTPResponse = urlopen(json_url)
+  json_data = json.load(request)
+  for platform in json_data['response']['docs']:
+    platform['title'] = str(platform['title'])[0:str(platform['title']).find(' (')].removeprefix("[No-Intro] ")
+    platforms_list[platform['title']] = platform['identifier']
+  return platforms_list
 
-  def update():
-    nonlocal internaL_count
-    internaL_count += 33
-    cb_progressbar.update(internaL_count, internal_max)
 
-  with urlopen(f"{_base_url}/{platform_id}") as response:
-    update()
-    dom = BeautifulSoup(response, features="html.parser", parse_only=SoupStrainer("a"))
-    update()
+def download_platform_details(platform_id: str) -> dict:
+  global platform_details
+  json_url = f"https://archive.org/details/{platform_id}&output=json"
+  request: HTTPResponse = urlopen(json_url)
+  platform_details = json.load(request)
+  return platform_details
 
-  for query in dom.contents:
-    query: Tag
-    if query.text.find(".7z") != -1: platform_games_buffer.append(query.text)
 
-  update()
-  cb_function()
+def get_platform_games_count() -> int:
+  if platform_details != {}: return int(platform_details['item']['files_count'] - 4)
+  else: raise Exception("No platform in memory! Scrap first.")
 
 
 def search_game(keywords: str) -> int:
   global games_found
-  games_found = []
+  games_found = {}
   keywords = keywords.lower().split(" ")
-  for game in platform_games_buffer:
+  for game in platform_details['files']:
     game: str
     game_lowered = game.lower()
 
@@ -53,8 +53,13 @@ def search_game(keywords: str) -> int:
           if game_lowered.find(kk) == -1:
             found = False
             break
-        if found:
-          games_found.append(game)
+        if found and platform_details['files'][game]['format'] != "Metadata" and platform_details['files'][game]['format'] != "Archive BitTorrent":
+          game_name_cleaned = game.removeprefix('/')
+          game_infos = {
+            "format": platform_details['files'][game]['format'],
+            "size": platform_details['files'][game]['size']
+          }
+          games_found[game_name_cleaned] = game_infos
           break
   return len(games_found)
 
@@ -84,13 +89,8 @@ def download_file(platform_id: str, filename: str, output_folder: str, cb_progre
   cb_function()
 
 
-def get_file_length(platform_id: str, filename: str) -> float:
-  filename_quoted = quote(filename)
-  full_url = f"{_base_url}/{platform_id}/{filename_quoted}"
-
-  try:
-    with urlopen(url=full_url, timeout=2) as response: return float(response.length)
-  except HTTPError: return float(0)
+def get_file_length(filename: str) -> float:
+  return float(games_found[filename]['size'])
 
 
 def length_to_unit_string(length: float) -> str:
