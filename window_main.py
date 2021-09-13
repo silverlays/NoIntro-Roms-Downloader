@@ -56,7 +56,7 @@ class WindowMain():
     ]
 
     self.window = sg.Window(__PROGRAM_TITLE__, frame_layout, size=(550, 460), finalize=True, resizable=True)
-    self.window.set_min_size((550, 460))
+    self.window.set_min_size((600, 460))
     self.window['button_download'].set_cursor("hand2")
     self.window['button_clear'].set_cursor("hand2")
     self.window['button_browse'].set_cursor("hand2")
@@ -72,7 +72,7 @@ class WindowMain():
     self.window.set_cursor("arrow")
     self.window['listbox_games'].update(games.games_names())
     self.window['text_total'].update(games.games_count())
-    self.window['text_filtered'].update(0)
+    self.window['text_filtered'].update(games.games_count())
     self.window['text_selected'].update(0)
     self.window['input_filter'].update("")
 
