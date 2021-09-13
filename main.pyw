@@ -1,6 +1,6 @@
-from mainwindow import MainWindow
+from window_main import WindowMain
 
 
-main_window = MainWindow()
+window_main = WindowMain()
 
-main_window.show()
+window_main.show()

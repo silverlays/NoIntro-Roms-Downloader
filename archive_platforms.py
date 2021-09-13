@@ -1,3 +1,4 @@
+import time
 import json
 from http.client import HTTPResponse
 from urllib.request import urlopen
@@ -12,9 +13,12 @@ _json_platforms_url = f"{_base_url}/advancedsearch.php?q=identifier%3Anointro.*&
 
 _platforms_request: HTTPResponse = urlopen(_json_platforms_url)
 for platform in json.load(_platforms_request)['response']['docs']:
-  platform['title'] = str(platform['title'])[0:str(platform['title']).find(' (')].removeprefix("[No-Intro] ")
+  platform_updated_time = platform['title'][(str(platform['title']).rfind("(")+1):-1]
+  platform_updated_time = time.strftime("%d-%m-%Y %H:%M:%S", time.strptime(platform_updated_time, "%Y%m%d-%H%M%S"))
+  platform['title'] = str(platform['title'])[0:str(platform['title']).rfind(' (')].removeprefix("[No-Intro] ")
+  platform['title'] = f"{platform['title']} ({platform_updated_time})"
   platforms_dict[platform['title']] = platform['identifier']
-
+pass
 
 def download_platform_details(platform_id: str) -> dict:
   import json
