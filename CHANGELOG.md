@@ -3,6 +3,7 @@
 ## v1.2
 ### Full redesign & more!
 * Fully redesigned interface.
+* A way less I/O network operations since I discovered a "JSON" manner to handle data scrapped from [Internet Archive](https://archive.org).
 * Changed games combo view with a listview to be able to download for than one file at once.
 * Options zone added but not yet ready (Unzip & more to come)
 
