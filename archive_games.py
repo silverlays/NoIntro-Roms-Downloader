@@ -3,6 +3,7 @@ games_dict = {}
 
 def create_games_dict(platform_games_dict: dict):
   global games_dict
+  games_dict = {}
   for game_name in platform_games_dict:
     if platform_games_dict[game_name]['format'] != "Metadata" and platform_games_dict[game_name]['format'] != "Archive BitTorrent":
       games_dict[str(game_name).removeprefix("/")] = platform_games_dict[game_name]
