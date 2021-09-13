@@ -40,7 +40,7 @@ class MainWindow():
       [sg.HorizontalSeparator()],
       [sg.Text("Filter:"), sg.Input(key="input_filter", expand_x=True), sg.Button("Clear", key="button_clear")],
       [sg.HorizontalSeparator()],
-      [sg.Text("Output folder:"), sg.Input(os.getcwd(), key="input_output_folder", readonly=True, expand_x=True), sg.FolderBrowse(initial_folder=os.getcwd())],
+      [sg.Text("Output folder:"), sg.Input(os.getcwd(), key="input_output_folder", readonly=True, expand_x=True), sg.FolderBrowse(initial_folder=os.getcwd(), key="button_browse")],
       [sg.Text("Options:"), sg.Checkbox("Unzip?")],
       [sg.HorizontalSeparator()],
       [sg.Button("Download", key="button_download", expand_x=True)],
@@ -52,15 +52,23 @@ class MainWindow():
 
     self.window = sg.Window(__PROGRAM_TITLE__, frame_layout, size=(550, 460), finalize=True, resizable=True)
     self.window.set_min_size((550, 460))
+    self.window['button_download'].set_cursor("hand2")
+    self.window['button_clear'].set_cursor("hand2")
+    self.window['button_browse'].set_cursor("hand2")
     self.window['input_filter'].bind("<Return>", "::RETURN")
 
 
   def _combo_platforms_clicked(self, platform_name: str):
+    self.window.set_cursor("watch")
+    self.window.read(0)
     self.platform_id = platforms.platforms_dict[platform_name]
     games.create_games_dict(platforms.download_platform_details(self.platform_id)['files'])
+    self.window.set_cursor("arrow")
     self.window['listbox_games'].update(games.games_names())
     self.window['text_total'].update(games.games_count())
     self.window['text_filtered'].update(0)
+    self.window['text_selected'].update(0)
+    self.window['input_filter'].update("")
 
 
   def _listbox_games_select_changed(self, listbox_selection: list):
