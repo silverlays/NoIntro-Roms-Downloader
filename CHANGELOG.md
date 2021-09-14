@@ -7,7 +7,7 @@
 * Changed games combo view with a listview to be able to download for than one file at once.
 * Added cursors
 * Added file's details window
-* Options zone added but not yet ready (Unzip & more to come)
+* Added Unzip (7z only) option
 
 ## v1.1
 ### New features

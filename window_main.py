@@ -16,6 +16,7 @@ APP_ICON_BASE64 = b"iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAED0lEQVRIx61W
 class WindowMain():
   def __init__(self):
     sg.set_global_icon(APP_ICON_BASE64)
+    self.unzip = False
   
 
   def show(self):
@@ -27,12 +28,12 @@ class WindowMain():
       #print(values)
 
       if event == sg.WIN_CLOSED: break
-      if event == "__TIMEOUT__": pass
       if event == "combo_platforms": self._combo_platforms_clicked(values['combo_platforms'])
       if event == "listbox_games": self._listbox_games_select_changed(values['listbox_games'])
       if event == "listbox_games::DBLCLICK" and len(values['listbox_games']) > 0: self._listbox_games_double_click(values['listbox_games'][0])
       if event == "input_filter::RETURN": self._input_filter_returned(values['input_filter'])
       if event == "button_clear": self._button_clear_pressed()
+      if event == "checkbox_unzip": self.unzip = values['checkbox_unzip']
       if event == "button_download": self._button_download_pressed(values['listbox_games'], values['input_output_folder'])
 
 
@@ -41,12 +42,12 @@ class WindowMain():
       [sg.Text("Platform:"), sg.Combo([platform for platform in platforms.platforms_dict], key="combo_platforms", enable_events=True, readonly=True, expand_x=True)],
       [sg.HorizontalSeparator()],
       [sg.Listbox([], key="listbox_games", expand_x=True, expand_y=True, enable_events=True, select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, font=("", 10, "bold"), text_color="#008040")],
-      [sg.Column([[sg.Text("Total:"), sg.Text("n/a", key="text_total")]], pad=(5, 0)), sg.Column([[sg.Text("Selected:"), sg.Text("0", key="text_selected")]], expand_x=True, element_justification="center", pad=(5, 0)), sg.Column([[sg.Text("Filtered:"), sg.Text("n/a", key="text_filtered")]], pad=(5, 0))],
+      [sg.Column([[sg.Text("Total:", pad=0), sg.Text("n/a", key="text_total", font=("", 10, "bold"), pad=0)]], pad=(5, 0)), sg.Column([[sg.Text("Selected:", pad=0), sg.Text("0", key="text_selected", font=("", 10, "bold"), pad=0)]], expand_x=True, element_justification="center", pad=(5, 0)), sg.Column([[sg.Text("Filtered:", pad=0), sg.Text("n/a", key="text_filtered", font=("", 10, "bold"), pad=0)]], pad=(5, 0))],
       [sg.HorizontalSeparator()],
       [sg.Text("Filter:"), sg.Input(key="input_filter", expand_x=True), sg.Button("Clear", key="button_clear")],
       [sg.HorizontalSeparator()],
       [sg.Text("Output folder:"), sg.Input(os.getcwd(), key="input_output_folder", readonly=True, expand_x=True), sg.FolderBrowse(initial_folder=os.getcwd(), key="button_browse")],
-      [sg.Text("Options:"), sg.Checkbox("Unzip?")],
+      [sg.Text("Options:"), sg.Checkbox("Unzip?", key="checkbox_unzip", enable_events=True)],
       [sg.HorizontalSeparator()],
       [sg.Button("Download", key="button_download", expand_x=True)],
       [sg.HorizontalSeparator()],
@@ -98,7 +99,15 @@ class WindowMain():
 
 
   def _button_download_pressed(self, selected_games: list, output_folder: str):
-      thread =threading.Thread(target=download.download_files, args=(self.platform_id, selected_games, output_folder, self.window['progressbar_download'], self.window['statusbar_status'], self.window['text_download'], self._download_callback))
+      thread =threading.Thread(target=download.download_files, args=(
+        self.platform_id,
+        selected_games,
+        output_folder,
+        self.unzip,
+        self.window['progressbar_download'],
+        self.window['statusbar_status'],
+        self.window['text_download'],
+        self._download_callback,))
       thread.start()
 
 
