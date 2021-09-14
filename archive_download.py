@@ -42,8 +42,8 @@ def download_files(platform_id: str, filenames: list, output_folder: str, unzip:
   for filename in filenames:
     if not abort_thread:
       file_size = float(games.game_info(filename)['size'])
-      str_counter = f" ({count}/{max})"
-      tronqued_filename = f"{filename[:50]}{'...' if len(filename) > 50 else ''}"
+      str_counter = f" ({count}/{max} failed: {failed})"
+      tronqued_filename = f"{filename[:40]}{'...' if len(filename) > 40 else ''}"
       cb_progressbar.update(0, 0)
       cb_text_status.update(f"0Kb / {common.length_to_unit_string(file_size)}")
       cb_statusbar.update(f"Downloading {tronqued_filename}" + str_counter)
@@ -57,8 +57,10 @@ def download_files(platform_id: str, filenames: list, output_folder: str, unzip:
         count+=1
       except:      
         failed+=1
-        cb_text_status.update(f"Downloading of {tronqued_filename} Failed!" + str_counter)
+        cb_statusbar.update(f"Downloading of {tronqued_filename} Failed!" + str_counter)
         time.sleep(2)
-    else: return
+    else:
+      abort_thread = False
+      return
   
   cb_function(count, max, failed)

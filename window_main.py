@@ -28,13 +28,7 @@ class WindowMain():
       #print(event)
       #print(values)
 
-      if event == sg.WIN_CLOSED:
-        if self.thread and self.thread.is_alive():
-          download.abort_thread = True
-          self.window['statusbar_status'].update("Closing connection, please wait...")
-          self.window.read(100)
-          self.thread.join()
-        break
+      if event == sg.WIN_CLOSED: break
       if event == "combo_platforms": self._combo_platforms_clicked(values['combo_platforms'])
       if event == "listbox_games": self._listbox_games_select_changed(values['listbox_games'])
       if event == "listbox_games::DBLCLICK" and len(values['listbox_games']) > 0: self._listbox_games_double_click(values['listbox_games'][0])
@@ -52,6 +46,12 @@ class WindowMain():
       if event == "input_output_folder": self.window['button_browse'].initialFolder = values['input_output_folder']
       if event == "checkbox_unzip": self.unzip = values['checkbox_unzip']
       if event == "button_download": self._button_download_pressed(values['listbox_games'], values['input_output_folder'])
+
+    sg.popup_no_titlebar("CLOSING, PLEASE WAIT...", font=("", 24, "bold"), grab_anywhere=False, non_blocking=True, button_type=sg.POPUP_BUTTONS_NO_BUTTONS)
+    if self.thread and self.thread.is_alive():
+      download.abort_thread = True
+      self.window.read(100)
+      self.thread.join()
 
 
   def _create_window(self):
