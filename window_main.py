@@ -190,6 +190,6 @@ class WindowMain():
     thread.start()
 
 
-  def _download_callback(self, count: int):
-    self.window['statusbar_status'].update(f"Download completed! ({count}/{count})")
+  def _download_callback(self, count: int, max: int, failed: int):
+    self.window['statusbar_status'].update(f"Download completed! ({count}/{max} successful, {failed} failed)")
     self.window['column_download'].update(visible=False)

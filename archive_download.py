@@ -1,4 +1,5 @@
 import os
+import time
 import py7zr
 import PySimpleGUI as sg
 import common_functions as common
@@ -33,20 +34,26 @@ def download_files(platform_id: str, filenames: list, output_folder: str, unzip:
     output_stream.close()
     while not file_request.closed and not output_stream.closed: pass
 
-  count = 0
+  failed = 0
+  count = 1
   max = len(filenames)
   for filename in filenames:
-    count+=1
     str_counter = f" ({count}/{max})"
-    tronqued_filename = f"{filename[:60]}{'...' if len(filename) > 60 else ''}"
+    tronqued_filename = f"{filename[:50]}{'...' if len(filename) > 50 else ''}"
     cb_progressbar.update(0, 0)
     cb_text_status.update("0Kb / 0Kb")
     cb_statusbar.update(f"Downloading {tronqued_filename}" + str_counter)
-    download(filename)
-    if unzip:
-      cb_statusbar.update(f"Extracting {tronqued_filename}" + str_counter)
-      py7zr.SevenZipFile(os.path.join(output_folder, filename)).extractall(output_folder)
-      cb_statusbar.update(f"Extraction completed! Deleting archive {tronqued_filename}" + str_counter)
-      os.remove(os.path.join(output_folder, filename))
+    try:
+      download(filename)
+      if unzip:
+        cb_statusbar.update(f"Extracting {tronqued_filename}" + str_counter)
+        py7zr.SevenZipFile(os.path.join(output_folder, filename)).extractall(output_folder)
+        cb_statusbar.update(f"Extraction completed! Deleting archive {tronqued_filename}" + str_counter)
+        os.remove(os.path.join(output_folder, filename))
+      count+=1
+    except:      
+      failed+=1
+      cb_text_status.update(f"Downloading of {tronqued_filename} Failed!" + str_counter)
+      time.sleep(2)
   
-  cb_function(max)
+  cb_function(count, max, failed)
