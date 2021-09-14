@@ -10,7 +10,7 @@ from http.client import HTTPResponse
 
 
 _base_url = "https://archive.org"
-
+abort_thread = False
 
 def download_files(platform_id: str, filenames: list, output_folder: str, unzip: bool, cb_progressbar: sg.ProgressBar, cb_statusbar: sg.StatusBar, cb_text_status: sg.Text, cb_function):
   def download(filename: str):
@@ -35,27 +35,30 @@ def download_files(platform_id: str, filenames: list, output_folder: str, unzip:
     output_stream.close()
     while not file_request.closed and not output_stream.closed: pass
 
+  global abort_thread
   failed = 0
   count = 1
   max = len(filenames)
   for filename in filenames:
-    file_size = float(games.game_info(filename)['size'])
-    str_counter = f" ({count}/{max})"
-    tronqued_filename = f"{filename[:50]}{'...' if len(filename) > 50 else ''}"
-    cb_progressbar.update(0, 0)
-    cb_text_status.update(f"0Kb / {common.length_to_unit_string(file_size)}")
-    cb_statusbar.update(f"Downloading {tronqued_filename}" + str_counter)
-    try:
-      download(filename)
-      if unzip:
-        cb_statusbar.update(f"Extracting {tronqued_filename}" + str_counter)
-        py7zr.SevenZipFile(os.path.join(output_folder, filename)).extractall(output_folder)
-        cb_statusbar.update(f"Extraction completed! Deleting archive {tronqued_filename}" + str_counter)
-        os.remove(os.path.join(output_folder, filename))
-      count+=1
-    except:      
-      failed+=1
-      cb_text_status.update(f"Downloading of {tronqued_filename} Failed!" + str_counter)
-      time.sleep(2)
+    if not abort_thread:
+      file_size = float(games.game_info(filename)['size'])
+      str_counter = f" ({count}/{max})"
+      tronqued_filename = f"{filename[:50]}{'...' if len(filename) > 50 else ''}"
+      cb_progressbar.update(0, 0)
+      cb_text_status.update(f"0Kb / {common.length_to_unit_string(file_size)}")
+      cb_statusbar.update(f"Downloading {tronqued_filename}" + str_counter)
+      try:
+        download(filename)
+        if unzip:
+          cb_statusbar.update(f"Extracting {tronqued_filename}" + str_counter)
+          py7zr.SevenZipFile(os.path.join(output_folder, filename)).extractall(output_folder)
+          cb_statusbar.update(f"Extraction completed! Deleting archive {tronqued_filename}" + str_counter)
+          os.remove(os.path.join(output_folder, filename))
+        count+=1
+      except:      
+        failed+=1
+        cb_text_status.update(f"Downloading of {tronqued_filename} Failed!" + str_counter)
+        time.sleep(2)
+    else: return
   
   cb_function(count, max, failed)

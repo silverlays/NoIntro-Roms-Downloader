@@ -29,8 +29,11 @@ class WindowMain():
       #print(values)
 
       if event == sg.WIN_CLOSED:
-        if self.thread:
-          while self.thread.is_alive(): self.window['statusbar_status'].update("Closing connection, please wait...")
+        if self.thread and self.thread.is_alive():
+          download.abort_thread = True
+          self.window['statusbar_status'].update("Closing connection, please wait...")
+          self.window.read(100)
+          self.thread.join()
         break
       if event == "combo_platforms": self._combo_platforms_clicked(values['combo_platforms'])
       if event == "listbox_games": self._listbox_games_select_changed(values['listbox_games'])
