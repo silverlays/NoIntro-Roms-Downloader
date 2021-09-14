@@ -38,7 +38,7 @@ def download_files(platform_id: str, filenames: list, output_folder: str, unzip:
   for filename in filenames:
     count+=1
     str_counter = f" ({count}/{max})"
-    tronqued_filename = f"{filename[:30]}{'...' if len(filename) > 30 else ''}"
+    tronqued_filename = f"{filename[:60]}{'...' if len(filename) > 60 else ''}"
     cb_progressbar.update(0, 0)
     cb_text_status.update("0Kb / 0Kb")
     cb_statusbar.update(f"Downloading {tronqued_filename}" + str_counter)
