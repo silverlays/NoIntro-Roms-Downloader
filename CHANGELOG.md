@@ -8,6 +8,7 @@
 * Added cursors
 * Added file's details window
 * Added Unzip (7z only) option
+* Added region filters
 
 ## v1.1
 ### New features

@@ -32,6 +32,15 @@ class WindowMain():
       if event == "listbox_games": self._listbox_games_select_changed(values['listbox_games'])
       if event == "listbox_games::DBLCLICK" and len(values['listbox_games']) > 0: self._listbox_games_double_click(values['listbox_games'][0])
       if event == "input_filter::RETURN": self._input_filter_returned(values['input_filter'])
+      if event == "button_region_europe":
+        self.window['input_filter'].update("Europe")
+        self._input_filter_returned("Europe")
+      if event == "button_region_usa":
+        self.window['input_filter'].update("USA")
+        self._input_filter_returned("USA")
+      if event == "button_region_japan":
+        self.window['input_filter'].update("Japan")
+        self._input_filter_returned("Japan")
       if event == "button_clear": self._button_clear_pressed()
       if event == "input_output_folder": self.window['button_browse'].initialFolder = values['input_output_folder']
       if event == "checkbox_unzip": self.unzip = values['checkbox_unzip']
@@ -84,12 +93,22 @@ class WindowMain():
       [sg.HorizontalSeparator()],
       [sg.Column(
         [
+          [sg.Text("Region")],
+          [sg.Text("Filter")]
+        ], element_justification="right", vertical_alignment="bottom",pad=0),
+        sg.Column(
+        [
           [
-            sg.Text("Filter", pad=((0,5), 0)),
-            sg.Input(key="input_filter", expand_x=True, pad=0),
-            sg.Button("Clear", key="button_clear")
-          ]
-        ], expand_x=True, pad=(5, 0))
+            sg.Button("Europe", key="button_region_europe", expand_x=True),
+            sg.Button("USA", key="button_region_usa", expand_x=True),
+            sg.Button("Japan", key="button_region_japan", expand_x=True)
+          ],
+          [sg.Input(key="input_filter", expand_x=True)]
+        ], expand_x=True, pad=0),
+        sg.Column(
+        [
+          [sg.Button("Clear", key="button_clear", pad=((0, 5), 0), expand_y=True)],
+        ], vertical_alignment="bottom", pad=0)
       ],
       [sg.HorizontalSeparator()],
       [sg.Column(
@@ -112,7 +131,7 @@ class WindowMain():
       [sg.HorizontalSeparator()],
       [sg.Button("Download", key="button_download", expand_x=True)],
       [sg.pin(column_download_layout, expand_x=True)],
-      [sg.StatusBar("Ready!", key="statusbar_status", font=("", 10, "bold"), justification="center", relief=sg.RELIEF_RAISED, expand_x=True, auto_size_text=False)]
+      [sg.StatusBar("Ready!", key="statusbar_status", font=("", 10, "bold italic"), justification="center", relief=sg.RELIEF_SUNKEN, expand_x=True, auto_size_text=False)]
     ]
 
     self.window = sg.Window(__PROGRAM_TITLE__, frame_layout, size=(600, 800), finalize=True, resizable=True)
