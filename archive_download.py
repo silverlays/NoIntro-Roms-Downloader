@@ -3,6 +3,7 @@ import time
 import py7zr
 import PySimpleGUI as sg
 import common_functions as common
+import archive_games as games
 from urllib.parse import quote
 from urllib.request import urlopen
 from http.client import HTTPResponse
@@ -38,10 +39,11 @@ def download_files(platform_id: str, filenames: list, output_folder: str, unzip:
   count = 1
   max = len(filenames)
   for filename in filenames:
+    file_size = float(games.game_info(filename)['size'])
     str_counter = f" ({count}/{max})"
     tronqued_filename = f"{filename[:50]}{'...' if len(filename) > 50 else ''}"
     cb_progressbar.update(0, 0)
-    cb_text_status.update("0Kb / 0Kb")
+    cb_text_status.update(f"0Kb / {common.length_to_unit_string(file_size)}")
     cb_statusbar.update(f"Downloading {tronqued_filename}" + str_counter)
     try:
       download(filename)

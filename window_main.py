@@ -17,6 +17,7 @@ class WindowMain():
   def __init__(self):
     sg.set_global_icon(APP_ICON_BASE64)
     self.unzip = False
+    self.thread: threading.Thread = None
   
 
   def show(self):
@@ -27,7 +28,10 @@ class WindowMain():
       #print(event)
       #print(values)
 
-      if event == sg.WIN_CLOSED: break
+      if event == sg.WIN_CLOSED:
+        if self.thread:
+          while self.thread.is_alive(): self.window['statusbar_status'].update("Closing connection, please wait...")
+        break
       if event == "combo_platforms": self._combo_platforms_clicked(values['combo_platforms'])
       if event == "listbox_games": self._listbox_games_select_changed(values['listbox_games'])
       if event == "listbox_games::DBLCLICK" and len(values['listbox_games']) > 0: self._listbox_games_double_click(values['listbox_games'][0])
@@ -178,7 +182,7 @@ class WindowMain():
 
   def _button_download_pressed(self, selected_games: list, output_folder: str):
     self.window['column_download'].update(visible=True)
-    thread =threading.Thread(target=download.download_files, args=(
+    self.thread =threading.Thread(target=download.download_files, args=(
       self.platform_id,
       selected_games,
       output_folder,
@@ -187,7 +191,7 @@ class WindowMain():
       self.window['statusbar_status'],
       self.window['text_download'],
       self._download_callback,))
-    thread.start()
+    self.thread.start()
 
 
   def _download_callback(self, count: int, max: int, failed: int):
