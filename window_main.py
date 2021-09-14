@@ -33,31 +33,90 @@ class WindowMain():
       if event == "listbox_games::DBLCLICK" and len(values['listbox_games']) > 0: self._listbox_games_double_click(values['listbox_games'][0])
       if event == "input_filter::RETURN": self._input_filter_returned(values['input_filter'])
       if event == "button_clear": self._button_clear_pressed()
+      if event == "input_output_folder": self.window['button_browse'].initialFolder = values['input_output_folder']
       if event == "checkbox_unzip": self.unzip = values['checkbox_unzip']
       if event == "button_download": self._button_download_pressed(values['listbox_games'], values['input_output_folder'])
 
 
   def _create_window(self):
+    column_download_layout = sg.Column(
+      [
+        [sg.HorizontalSeparator()],
+        [sg.Text("Download progress", expand_x=True, justification="center", pad=(5, 0))],
+        [sg.ProgressBar(10, key="progressbar_download", size=(0, 20), expand_x=True)],
+        [sg.Text("0Kb / 0Kb", key="text_download", expand_x=True, justification="center", pad=(5, 0))],
+        [sg.HorizontalSeparator()]
+      ], key="column_download", expand_x=True, visible=False)
+
     frame_layout = [
-      [sg.Text("Platform:"), sg.Combo([platform for platform in platforms.platforms_dict], key="combo_platforms", enable_events=True, readonly=True, expand_x=True)],
+      [sg.Column(
+        [
+          [
+            sg.Text("Platform", pad=((0,5), 0)),
+            sg.Combo([platform for platform in platforms.platforms_dict], key="combo_platforms", enable_events=True, readonly=True, expand_x=True, pad=0)
+          ]
+        ], expand_x=True, pad=(5, 0))
+      ],
       [sg.HorizontalSeparator()],
       [sg.Listbox([], key="listbox_games", expand_x=True, expand_y=True, enable_events=True, select_mode=sg.LISTBOX_SELECT_MODE_EXTENDED, font=("", 10, "bold"), text_color="#008040")],
-      [sg.Column([[sg.Text("Total:", pad=0), sg.Text("n/a", key="text_total", font=("", 10, "bold"), pad=0)]], pad=(5, 0)), sg.Column([[sg.Text("Selected:", pad=0), sg.Text("0", key="text_selected", font=("", 10, "bold"), pad=0)]], expand_x=True, element_justification="center", pad=(5, 0)), sg.Column([[sg.Text("Filtered:", pad=0), sg.Text("n/a", key="text_filtered", font=("", 10, "bold"), pad=0)]], pad=(5, 0))],
+      [sg.Column(
+        [
+          [
+            sg.Text("Total", pad=0),
+            sg.Text("n/a", key="text_total", font=("", 10, "bold"), text_color="#80ff80", pad=0)
+          ]
+        ], pad=(5, 0)),
+      sg.Column(
+        [
+          [
+            sg.Text("Selected", pad=0),
+            sg.Text("0", key="text_selected", font=("", 10, "bold"), text_color="#80ff80", pad=0)
+          ]
+        ], expand_x=True, element_justification="center", pad=(5, 0)),
+      sg.Column(
+        [
+          [
+            sg.Text("Filtered", pad=0),
+            sg.Text("n/a", key="text_filtered", font=("", 10, "bold"), text_color="#80ff80", pad=0)
+          ]
+        ], pad=(5, 0))
+      ],
       [sg.HorizontalSeparator()],
-      [sg.Text("Filter:"), sg.Input(key="input_filter", expand_x=True), sg.Button("Clear", key="button_clear")],
+      [sg.Column(
+        [
+          [
+            sg.Text("Filter", pad=((0,5), 0)),
+            sg.Input(key="input_filter", expand_x=True, pad=0),
+            sg.Button("Clear", key="button_clear")
+          ]
+        ], expand_x=True, pad=(5, 0))
+      ],
       [sg.HorizontalSeparator()],
-      [sg.Text("Output folder:"), sg.Input(os.getcwd(), key="input_output_folder", readonly=True, expand_x=True), sg.FolderBrowse(initial_folder=os.getcwd(), key="button_browse")],
-      [sg.Text("Options:"), sg.Checkbox("Unzip?", key="checkbox_unzip", enable_events=True)],
+      [sg.Column(
+        [
+          [
+            sg.Text("Output folder", pad=((0,5), 0)),
+            sg.Input(os.getcwd(), key="input_output_folder", enable_events=True, readonly=True, expand_x=True, pad=0),
+            sg.FolderBrowse(key="button_browse")
+          ]
+        ], expand_x=True, pad=(5, 0))
+      ],
+      [sg.Column(
+        [
+          [
+            sg.Text("Options:", pad=((0,5), 0)),
+            sg.Checkbox("Unzip?", key="checkbox_unzip", enable_events=True, pad=0)
+          ]
+        ], expand_x=True, pad=(5, 0))
+      ],
       [sg.HorizontalSeparator()],
       [sg.Button("Download", key="button_download", expand_x=True)],
-      [sg.HorizontalSeparator()],
-      [sg.Text("Progress:"), sg.ProgressBar(10, key="progressbar_download", size=(0, 20), expand_x=True), sg.Text("0Kb / 0Kb", key="text_download")],
-      [sg.HorizontalSeparator()],
-      [sg.StatusBar("Ready!", key="statusbar_status", justification="center", relief=sg.RELIEF_RAISED, expand_x=True, auto_size_text=False)]
+      [sg.pin(column_download_layout, expand_x=True)],
+      [sg.StatusBar("Ready!", key="statusbar_status", font=("", 10, "bold"), justification="center", relief=sg.RELIEF_RAISED, expand_x=True, auto_size_text=False)]
     ]
 
-    self.window = sg.Window(__PROGRAM_TITLE__, frame_layout, size=(550, 460), finalize=True, resizable=True)
-    self.window.set_min_size((600, 460))
+    self.window = sg.Window(__PROGRAM_TITLE__, frame_layout, size=(600, 800), finalize=True, resizable=True)
+    self.window.set_min_size(self.window.size)
     self.window['button_download'].set_cursor("hand2")
     self.window['button_clear'].set_cursor("hand2")
     self.window['button_browse'].set_cursor("hand2")
@@ -99,17 +158,19 @@ class WindowMain():
 
 
   def _button_download_pressed(self, selected_games: list, output_folder: str):
-      thread =threading.Thread(target=download.download_files, args=(
-        self.platform_id,
-        selected_games,
-        output_folder,
-        self.unzip,
-        self.window['progressbar_download'],
-        self.window['statusbar_status'],
-        self.window['text_download'],
-        self._download_callback,))
-      thread.start()
+    self.window['column_download'].update(visible=True)
+    thread =threading.Thread(target=download.download_files, args=(
+      self.platform_id,
+      selected_games,
+      output_folder,
+      self.unzip,
+      self.window['progressbar_download'],
+      self.window['statusbar_status'],
+      self.window['text_download'],
+      self._download_callback,))
+    thread.start()
 
 
   def _download_callback(self, count: int):
     self.window['statusbar_status'].update(f"Download completed! ({count}/{count})")
+    self.window['column_download'].update(visible=False)
