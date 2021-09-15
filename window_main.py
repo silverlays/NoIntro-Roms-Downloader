@@ -1,5 +1,6 @@
 import os
 import threading
+import webbrowser
 from typing import Text
 import PySimpleGUI as sg
 from PySimpleGUI.PySimpleGUI import Button, Column
@@ -40,6 +41,7 @@ class MainWindow():
       if event == "File integrity checker": self._menu_tool_integrity_checker()
       if event == "About...": self._menu_about()
       if event == "combo_platforms": self._combo_platforms_clicked(values['combo_platforms'])
+      if event == "HYPERLINK::text_hyperlink_platform": webbrowser.open(self.window['HYPERLINK::text_hyperlink_platform'].metadata)
       if event == "listbox_games": self._listbox_games_select_changed(values['listbox_games'])
       if event == "listbox_games::DBLCLICK" and len(values['listbox_games']) > 0: self._listbox_games_double_click(values['listbox_games'][0])
       if event == "input_filter::RETURN": self._button_filter_returned(values['input_filter'])
@@ -169,6 +171,8 @@ class MainWindow():
 
     self.window = sg.Window(__PROGRAM_TITLE__, window_layout, size=(600, 600), finalize=True, resizable=True)
     self.window.set_min_size(self.window.size)
+    for hyperlink in self.window.AllKeysDict:
+      if str(hyperlink).startswith("HYPERLINK::"): self.window[hyperlink].set_cursor("hand2")
     self.window['button_download'].set_cursor("hand2")
     self.window['button_clear'].set_cursor("hand2")
     self.window['button_browse'].set_cursor("hand2")
@@ -179,7 +183,7 @@ class MainWindow():
   def _menu_tool_integrity_checker(self):
     folder = self.window['input_output_folder'].get()
     if games.games_dict != {}: FileCheckerToolsWindow(folder).show()
-    else: sg.popup_error("List is empty.\nChoose a platform and try again.")
+    else: sg.popup_error("List is empty.", "Choose a platform and try again.", no_titlebar=True)
 
 
   def _menu_about(self):
@@ -189,10 +193,15 @@ class MainWindow():
 
   def _combo_platforms_clicked(self, platform_name: str):
     self.window.set_cursor("watch")
-    self.window.read(0)
+    self.window.read(100)
     self.platform_id = platforms.platforms_dict[platform_name]
     games.create_games_dict(platforms.download_platform_details(self.platform_id)['files'])
     self.window.set_cursor("arrow")
+    self.window.read(100)
+    platform_url = f"{platforms.base_url}/details/{self.platform_id}"
+    self.window['HYPERLINK::text_hyperlink_platform'].set_tooltip(platform_url)
+    self.window['HYPERLINK::text_hyperlink_platform'].metadata = platform_url
+    self.window['HYPERLINK::text_hyperlink_platform'].update(visible=True)
     self.window['listbox_games'].update(games.games_names())
     self.window['text_total'].update(games.games_count())
     self.window['text_filtered'].update(games.games_count())

@@ -29,7 +29,7 @@ class FileCheckerToolsWindow():
     window_layout = [
       [common.create_modal_title("File checker tool")],
       [sg.Multiline("Begin scan...\n", key="multiline_log", disabled=True, autoscroll=True, expand_x=True, expand_y=True)],
-      [sg.Button("Close", expand_x=True, font=("", 10, "bold"), border_width=3)]
+      [sg.Button("Close", expand_x=True, font=("", 10, "bold"), border_width=3, pad=(0, (10, 5)))]
     ]
 
     self.window = sg.Window("", window_layout, modal=True, grab_anywhere=True, size=(600, 400), disable_close=True, disable_minimize=True, finalize=True)

@@ -20,21 +20,24 @@ class AboutWindow():
 
   
   def _create_window(self):
-    links_layout = [
-      sg.Column([
-        [sg.Text("My YouTube:", pad=0)],
-        [sg.Text("My Twitch:", pad=0)],
-        [sg.Text("My Discord:", pad=0)],
-      ], pad=((5, 0), 5), element_justification="right"),
-      sg.Column([
-        [common.create_hyperlink("https://www.youtube.com/channel/UC9pLDlEx1XI0WNo-K23aH7A", "youtube", text_color="orange", pad=0)],
-        [common.create_hyperlink("https://www.twitch.tv/silv3r_ow", "twitch", text_color="orange", pad=0)],
-        [common.create_hyperlink("https://discord.gg/DHjzxMh", "discord", text_color="orange", pad=0)],
-      ], pad=((0, 5), 5))
-    ]
+    links_layout = sg.Column([
+      [
+        sg.Column([
+          [sg.Text("My YouTube:")],
+          [sg.Text("My Twitch:")],
+          [sg.Text("My Discord:")],
+        ], element_justification="right"),
+        sg.Column([
+          [common.create_hyperlink("https://www.youtube.com/channel/UC9pLDlEx1XI0WNo-K23aH7A", "youtube", text_color="orange")],
+          [common.create_hyperlink("https://www.twitch.tv/silv3r_ow", "twitch", text_color="orange")],
+          [common.create_hyperlink("https://discord.gg/DHjzxMh", "discord", text_color="orange")],
+        ])
+      ]
+    ], pad=(0, (20, 10)))
+    
     window_layout = [
-      [sg.Image(self.base64_icon), sg.Text(self.program_title, font=("", 24, "bold"))],
-      [sg.Text(), sg.Text(self.description, font=("", 10, "italic"))],
+      [sg.Image(self.base64_icon), sg.Text(self.program_title, font=("", 24, "bold"), pad=((5, 0), 0))],
+      [sg.Text(), sg.Text(self.description, font=("", 10, "italic"), pad=((10, 0), 0))],
       [links_layout]
     ]
 
