@@ -1,9 +1,7 @@
 import os
 import threading
 import webbrowser
-from typing import Text
 import PySimpleGUI as sg
-from PySimpleGUI.PySimpleGUI import Button, Column
 import common_functions as common
 import archive_platforms as platforms
 import archive_games as games
