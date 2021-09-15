@@ -3,7 +3,7 @@ import archive_games as games
 import common_functions as common
 
 
-class WindowGameInfo():
+class GameInfoWindow():
   def __init__(self, filename: str):
     self.game_filename = filename
     self.game_format = games.game_info(filename)['format']
