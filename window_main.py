@@ -7,7 +7,8 @@ import archive_platforms as platforms
 import archive_games as games
 import archive_download as download
 from window_game_info import GameInfoWindow
-from window_tools_filechecker import FileCheckerToolsWindow
+from window_tools_filechecker import FileHashCheckerToolWindow
+from window_tools_fullset_comparer import FullsetComparerToolWindow
 
 
 __PROGRAM_VERSION__ = "1.3"
@@ -37,6 +38,7 @@ class MainWindow():
         self.window.close()
         break
       if event == "File integrity checker": self._menu_tool_integrity_checker()
+      if event == "Fullset Comparer": self._menu_tool_fullset_comparer()
       if event == "About...": self._menu_about()
       if event == "combo_platforms": self._combo_platforms_clicked(values['combo_platforms'])
       if event == "HYPERLINK::text_hyperlink_platform": webbrowser.open(self.window['HYPERLINK::text_hyperlink_platform'].metadata)
@@ -61,8 +63,8 @@ class MainWindow():
   def _create_window(self):
     menu_layout = [
       sg.Menu([
-        ["&File", "&Quit"],
-        ["&Tools", "&File integrity checker"],
+        ["&File", "Quit"],
+        ["&Tools", ["File integrity checker", "Fullset Comparer"]],
         ["&Help", "About..."]
       ])
     ]
@@ -180,7 +182,13 @@ class MainWindow():
 
   def _menu_tool_integrity_checker(self):
     folder = self.window['input_output_folder'].get()
-    if games.games_dict != {}: FileCheckerToolsWindow(folder).show()
+    if games.games_dict != {}: FileHashCheckerToolWindow(folder).show()
+    else: sg.popup_error("List is empty.", "Choose a platform and try again.", no_titlebar=True)
+
+
+  def _menu_tool_fullset_comparer(self):
+    folder = self.window['input_output_folder'].get()
+    if games.games_dict != {}: FullsetComparerToolWindow(folder, self.window['listbox_games'].Values).show()
     else: sg.popup_error("List is empty.", "Choose a platform and try again.", no_titlebar=True)
 
 

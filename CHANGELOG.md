@@ -3,6 +3,7 @@
 ## v1.3 (in progress)
 ### About screen, tools & more
 * File checker tool (md5): This tool scan a directory for roms and compare file's hash.
+* Fullset Comparer: Compare your local folder with the NoIntro list to know what you miss (or failed?).
 * About screen added to access my social networks.
 * Can now handle hyperlink for the whole program.
 

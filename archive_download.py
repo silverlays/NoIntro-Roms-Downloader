@@ -35,10 +35,10 @@ def download_files(platform_id: str, filenames: list, output_folder: str, unzip:
       cb_statusbar.update(f"Downloading {tronqued_filename} " + str_counter)
       try:
         download(filename)
-        progress_pourcent = int((count / max) * 100)
+        progress_pourcent = (count / max) * 100
         downloaded_size += float(games.game_info(filename)['size'])
         cb_progressbar.update(count, max)
-        cb_text_status.update(f"{'{:02d}'.format(progress_pourcent)}% ({common.length_to_unit_string(downloaded_size)} / {common.length_to_unit_string(total_size)})")
+        cb_text_status.update(f"{'{:.1f}'.format(progress_pourcent)}% ({common.length_to_unit_string(downloaded_size)} / {common.length_to_unit_string(total_size)})")
         if unzip:
           cb_statusbar.update(f"Extracting {tronqued_filename}" + str_counter)
           py7zr.SevenZipFile(os.path.join(output_folder, filename)).extractall(output_folder)
