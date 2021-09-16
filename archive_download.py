@@ -19,7 +19,7 @@ def download_files(platform_id: str, filenames: list, output_folder: str, unzip:
     output_stream = open(file=os.path.join(output_folder, filename), mode="wb")
     file_request: HTTPResponse = urlopen(full_url)
     file_length = file_request.length
-    buffer_length = int(file_length / 10)
+    buffer_length = int(file_length / 5)
     position = 0
     
     while True:
