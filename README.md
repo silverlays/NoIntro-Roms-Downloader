@@ -9,6 +9,7 @@ See [CHANGELOG.md](https://github.com/silverlays/NoIntro-Roms-Downloader/blob/ma
 ___
 Building:
 ```
-pip install pyinstaller
+git clone https://github.com/silverlays/NoIntro-Roms-Downloader
+pip install -r requirements.txt
 pyinstaller -F -n "NoIntro Roms Downloader" -i "app.ico" main.pyw
 ```
