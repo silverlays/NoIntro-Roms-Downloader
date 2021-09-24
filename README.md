@@ -12,5 +12,5 @@ Building:
 git clone https://github.com/silverlays/NoIntro-Roms-Downloader
 cd ./NoIntro-Roms-Downloader
 pip install -r requirements.txt
-pyinstaller -F -n "NoIntro Roms Downloader" -i "app.ico" main.pyw
+pyinstaller -Fn "NoIntro Roms Downloader" -i "app.ico" main.pyw
 ```
