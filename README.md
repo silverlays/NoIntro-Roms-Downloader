@@ -7,7 +7,7 @@ See [CHANGELOG.md](https://github.com/silverlays/NoIntro-Roms-Downloader/blob/ma
 
 
 ___
-Building:
+Building (Windows/Linux):
 ```
 git clone https://github.com/silverlays/NoIntro-Roms-Downloader
 cd ./NoIntro-Roms-Downloader
