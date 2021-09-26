@@ -15,3 +15,4 @@ cd ./NoIntro-Roms-Downloader
 pip install -r requirements.txt
 pyinstaller -Fn "NoIntro Roms Downloader" -i "app.ico" main.pyw
 ```
+Your executable will be in **./dist** folder (you can remove **./build** folder after generation)
