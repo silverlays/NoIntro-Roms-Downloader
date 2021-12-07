@@ -1,6 +1,6 @@
 # NoIntro-Roms-Downloader
 ## Description
-Download "official" roms from NoIntro fullsets on Internet Archive (archive.org). Lastest binaries are available [here](https://github.com/silverlays/NoIntro-Roms-Downloader/releases/latest) or you can just clone the repo and launch it under Windows and Linux. (see below)
+Download "datted" ROMs from NoIntro fullsets on Internet Archive (archive.org). Lastest binaries are available [here](https://github.com/silverlays/NoIntro-Roms-Downloader/releases/latest) or you can just clone the repo and launch it under Windows and Linux. (see below)
 
 If you want to see changes since the beginning of this project, see [CHANGELOG.md](https://github.com/silverlays/NoIntro-Roms-Downloader/blob/master/CHANGELOG.md).
 
