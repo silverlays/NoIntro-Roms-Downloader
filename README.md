@@ -1,6 +1,5 @@
-> **UPDATE (03/26/2022)** : QUICK FIX INCLUDED IN THE EXECUTABLE, DON'T FORGET TO (RE)DOWNLOAD IT !
-
 # NoIntro-Roms-Downloader
+> ### **UPDATE (03/26/2022)** : QUICK FIX INCLUDED IN THE EXECUTABLE 1.3a, DON'T FORGET TO (RE)DOWNLOAD IT !
 
 ## Description
 Download "datted" ROMs from NoIntro fullsets on Internet Archive (archive.org). Lastest binaries are available [here](https://github.com/silverlays/NoIntro-Roms-Downloader/releases/latest) or you can just clone the repo and launch it under Windows and Linux. (see below)
