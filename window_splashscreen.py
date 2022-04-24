@@ -33,10 +33,13 @@ class SplashScreen(QSplashScreen):
   
   def show(self) -> None:
     super().show()
-    self.showMessage('Downloading platforms list...')
+    self.showMessage('Downloading platforms list...', color=Qt.GlobalColor.white, alignment=(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter))
     platforms = archive.download_platforms()
     
     # DEBUG
+    platforms.pop()
+    platforms.pop()
+    platforms.pop()
     platforms.pop()
     platforms.pop()
     platforms.pop()
@@ -72,4 +75,4 @@ class SplashScreen(QSplashScreen):
   def _updateMessage(self, platform_data: archive.Platform):
     self.download_completed += 1
     self.platforms_data.append(platform_data)
-    self.showMessage(f'Downloading data... ({(self.download_completed):02d}/{len(self.threads):02d})')
+    self.showMessage(f'Downloading data... ({(self.download_completed):02d}/{len(self.threads):02d})', color=Qt.GlobalColor.white, alignment=(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter))

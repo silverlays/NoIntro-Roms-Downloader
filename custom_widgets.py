@@ -26,9 +26,9 @@ class MyTableWidget(QTableWidget):
     self.setHorizontalHeaderItem(4, QTableWidgetItem('CRC32'))
     self.setHorizontalHeaderItem(5, QTableWidgetItem('SHA1'))
     
-    self.setColumnWidth(0, 390) # GAME
+    self.setColumnWidth(0, 420) # GAME
     self.setColumnWidth(1, 70) # SIZE
-    self.setColumnWidth(2, 70) # FORMAT
+    self.setColumnWidth(2, 60) # FORMAT
     self.setColumnWidth(3, 70) # MD5
     self.setColumnWidth(4, 70) # CRC32
     self.setColumnWidth(5, 70) # SHA1

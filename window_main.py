@@ -98,6 +98,13 @@ class MainWindow(QMainWindow):
     self.right_group = QGroupBox('Games')
     self.right_group_layout = QVBoxLayout(self.right_group)
     self.right_group_layout.setContentsMargins(0, 0, 0, 0)
+
+    self.filter_editbox = QLineEdit(self.right_group)
+    self.filter_editbox.setText('Click here to filter the result.')
+    self.filter_editbox.focusInEvent = lambda x: self.filterFocusInEvent()
+    self.filter_editbox.focusOutEvent = lambda x: self.filterFocusOutEvent()
+    self.right_group_layout.addWidget(self.filter_editbox)
+
     self.main_layout.addWidget(self.right_group, stretch=1)
   
   def platformSelectedChanged(self, current: QListWidgetItem, previous: QListWidgetItem):
@@ -111,8 +118,14 @@ class MainWindow(QMainWindow):
     current.setFont(font)
 
     platform: archive.Platform = self.platforms_data[self.platform_list_widget.currentIndex().row()]
-    old_table = self.right_group_layout.itemAt(0).widget() if hasattr(self.right_group_layout.itemAt(0), 'widget') else None
+    old_table = self.right_group_layout.itemAt(1).widget() if hasattr(self.right_group_layout.itemAt(1), 'widget') else None
     new_table = MyTableWidget()
     for rom in platform.roms_data: new_table.addItem(rom)
     self.right_group_layout.removeWidget(old_table)
     self.right_group_layout.addWidget(new_table)
+
+  def filterFocusInEvent(self):
+    self.filter_editbox.setText('')
+
+  def filterFocusOutEvent(self):
+    if self.filter_editbox.text() == '': self.filter_editbox.setText('Click here to filter the result.')
