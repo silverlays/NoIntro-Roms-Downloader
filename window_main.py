@@ -12,6 +12,7 @@ app = QApplication(sys.argv)
 
 class MainWindow(QMainWindow):
   platforms_data = []
+  table = None
 
   def __init__(self, platforms_data: list, app: QApplication):
     super().__init__()
@@ -25,10 +26,12 @@ class MainWindow(QMainWindow):
     self.main_widget = QWidget(self)
     self.setCentralWidget(self.main_widget)
     self.main_layout = QHBoxLayout(self.main_widget)
+
     self.loadStyle()
     self.setupMenu()
     self.setupLeft()
     self.setupRight()
+    
     self.platform_list_widget.setCurrentRow(0)
 
     self.show()
@@ -71,13 +74,12 @@ class MainWindow(QMainWindow):
 
   def setupLeft(self):
     self.left_group = QGroupBox('Platform', self)
-    self.left_group.setFixedWidth(int(PROGRAM_WIDTH / 3))
+    self.left_group.setFixedWidth(int(PROGRAM_WIDTH / 4))
     
     self.left_group_layout = QVBoxLayout(self.left_group)
     self.left_group_layout.setContentsMargins(0, 0, 0, 0)
 
     self.platform_list_widget = QListWidget(self.left_group)
-    self.platform_list_widget.setCursor(Qt.CursorShape.PointingHandCursor)
     self.platform_list_widget.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
     self.platform_list_widget.currentItemChanged.connect(self.platformSelectedChanged)
 
@@ -97,16 +99,55 @@ class MainWindow(QMainWindow):
     self.right_group = QGroupBox('Games')
     self.right_group_layout = QVBoxLayout(self.right_group)
     self.right_group_layout.setContentsMargins(0, 0, 0, 0)
-
-    self.filter_editbox = QLineEdit(self.right_group)
-    self.filter_editbox.setText('Click here to filter the result.')
-    self.filter_editbox.textEdited.connect(self.filterTextEdited)
-    self.filter_editbox.focusInEvent = lambda x: self.filterFocusInEvent()
-    self.filter_editbox.focusOutEvent = lambda x: self.filterFocusOutEvent()
-    self.right_group_layout.addWidget(self.filter_editbox)
-
+    self.right_group_layout.addWidget(self.filterWidget(self.right_group))
+    self.right_group_layout.addWidget(self.statusWidget(self.right_group))
     self.main_layout.addWidget(self.right_group, stretch=1)
   
+  def filterWidget(self, parent: QWidget) -> QWidget:
+    widget = QWidget(parent)
+    layout = QHBoxLayout(widget)
+    layout.setContentsMargins(5, 5, 5, 5)
+    layout.addWidget(QLabel('Filter:', widget))
+    
+    self.filter_editbox = QLineEdit(widget)
+    self.filter_editbox.setClearButtonEnabled(True)
+    self.filter_editbox.textEdited.connect(self.filterTextEdited)
+    layout.addWidget(self.filter_editbox)
+    return widget
+  
+  def statusWidget(self, parent: QWidget) -> QGroupBox:
+    widget = QGroupBox('Download details', parent)
+    layout = QGridLayout(widget)
+    
+    download_label = QLabel('Current opération:', widget)
+    download_label.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
+    layout.addWidget(download_label, 0, 0)
+    
+    self.status_download_label = QLabel('N/A')
+    self.status_download_label.setAlignment(Qt.AlignmentFlag.AlignLeft)
+    layout.addWidget(self.status_download_label, 0, 1)
+
+    self.status_progressbar = QProgressBar(widget)
+    self.status_progressbar.setValue(50)
+    layout.addWidget(self.status_progressbar, 1, 0, 1, 3)
+
+    layout.addWidget(QLabel(''), 2, 0, 1, 3)
+
+    button1 = QPushButton('Download', widget)
+    button1.setCursor(Qt.CursorShape.PointingHandCursor)
+    button1.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Maximum)
+    layout.addWidget(button1, 3, 0)
+    button2 = QPushButton('Stop', widget)
+    button2.setCursor(Qt.CursorShape.PointingHandCursor)
+    button2.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Maximum)
+    layout.addWidget(button2, 3, 1)
+    button3 = QPushButton('Pause', widget)
+    button3.setCursor(Qt.CursorShape.PointingHandCursor)
+    button3.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Maximum)
+    layout.addWidget(button3, 3, 2)
+
+    return widget
+
   def platformSelectedChanged(self, current: QListWidgetItem, previous: QListWidgetItem):
     if previous:
       font = previous.font()
@@ -117,27 +158,12 @@ class MainWindow(QMainWindow):
     font.setBold(True)
     current.setFont(font)
 
+    if self.table: self.right_group_layout.removeWidget(self.table)
     platform: archive.Platform = self.platforms_data[self.platform_list_widget.currentIndex().row()]
-    old_table = self.right_group_layout.itemAt(1).widget() if hasattr(self.right_group_layout.itemAt(1), 'widget') else None
-    new_table = MyTableWidget()
-    for rom in platform.roms_data: new_table.addItem(rom)
-    if old_table: self.right_group_layout.removeWidget(old_table)
-    self.right_group_layout.addWidget(new_table)
+    self.table = MyTableWidget()
+    for rom in platform.roms_data: self.table.addItem(rom)
+    self.right_group_layout.insertWidget(1, self.table)
 
   def filterTextEdited(self, filter_text: str):
-    filter_text = filter_text.lower()
-    table: MyTableWidget = self.right_group_layout.itemAt(1).widget() if hasattr(self.right_group_layout.itemAt(1), 'widget') else None
-    
-    if table:
-      for i in range(table.rowCount()):
-        rom = table.getRomWidgetItem(i)
-        rom_name = rom.text().lower()
-        if rom_name.find(filter_text) == -1:
-          table.hideRow(i)
-        else: table.showRow(i)
-
-  def filterFocusInEvent(self):
-    self.filter_editbox.setText('')
-
-  def filterFocusOutEvent(self):
-    if self.filter_editbox.text() == '': self.filter_editbox.setText('Click here to filter the result.')
+    if self.table:
+      self.table.showByKeyword(filter_text)

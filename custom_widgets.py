@@ -44,7 +44,14 @@ class MyTableWidget(QTableWidget):
     self.setItem(row, 4, MyTableWidgetItem(rom_details['crc32']))
     self.setItem(row, 5, MyTableWidgetItem(rom_details['sha1']))
   
-  def getRomWidgetItem(self, row: int):
-    return self.item(row, 0)
+  def resetTableVisibility(self):
+    for i in range(self.rowCount()):
+      self.setRowHidden(i, False)
 
-
+  def showByKeyword(self, keyword: str):
+    keyword = keyword.lower()
+    for i in range(self.rowCount()):
+      rom_name = self.item(i, 0).text().lower()
+      if rom_name.find(keyword) == -1:
+        self.setRowHidden(i, True)
+      else: self.setRowHidden(i, False)
