@@ -16,6 +16,7 @@ class MyTableWidget(QTableWidget):
   def __init__(self):
     super().__init__(None)
     self.setSelectionBehavior(self.SelectionBehavior.SelectRows)
+    self.setEditTriggers(self.EditTrigger.NoEditTriggers)
     
     for i in range(0, 6):  self.insertColumn(i)
     self.setHorizontalHeaderItem(0, QTableWidgetItem('GAME'))
