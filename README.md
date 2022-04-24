@@ -1,4 +1,13 @@
 # NoIntro-Roms-Downloader
+### <i>Here is a sneak peak of what you'll get in the actively developed v2.0 (in Qt!) 😊</i>
+<p align='center'>
+  <a href='https://ibb.co/8svXTKH'><img src='https://i.ibb.co/xL93PCN/mainwindow.jpg' width='70%' /></a>
+</p>
+<p align='center'>
+    <i>More informations coming soon, stay tuned!</i>
+</p>
+
+
 ## Description
 Download "datted" ROMs from NoIntro fullsets on Internet Archive (archive.org). Lastest binaries are available [here](https://github.com/silverlays/NoIntro-Roms-Downloader/releases/latest) or you can just clone the repo and launch it under Windows and Linux. (see below)
 
