@@ -7,6 +7,15 @@
 QWidget {
   font-size: 14px;
 }
+QPushButton, QMenuBar::item::selected, QMenu::item::selected {
+  background-color: #be0000;
+}
+QMenu::separator {
+  background-color: #eeeeee;
+  height: 1px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
 QGroupBox {
   font-weight: bold;
   border: 1px solid #be0000;

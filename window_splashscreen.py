@@ -36,23 +36,23 @@ class SplashScreen(QSplashScreen):
     self.showMessage('Downloading platforms list...')
     platforms = archive.download_platforms()
     
-    # # DEBUG
-    # platforms.pop()
-    # platforms.pop()
-    # platforms.pop()
-    # platforms.pop()
-    # platforms.pop()
-    # platforms.pop()
-    # platforms.pop()
-    # platforms.pop()
-    # platforms.pop()
-    # platforms.pop()
-    # platforms.pop()
-    # platforms.pop()
-    # platforms.pop()
-    # platforms.pop()
-    # platforms.pop()
-    # # DEBUG
+    # DEBUG
+    platforms.pop()
+    platforms.pop()
+    platforms.pop()
+    platforms.pop()
+    platforms.pop()
+    platforms.pop()
+    platforms.pop()
+    platforms.pop()
+    platforms.pop()
+    platforms.pop()
+    platforms.pop()
+    platforms.pop()
+    platforms.pop()
+    platforms.pop()
+    platforms.pop()
+    # DEBUG
     
     [self.threads.append(QThread()) for _ in range(len(platforms))]
 
