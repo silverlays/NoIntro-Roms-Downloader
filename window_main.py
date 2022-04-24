@@ -101,6 +101,7 @@ class MainWindow(QMainWindow):
 
     self.filter_editbox = QLineEdit(self.right_group)
     self.filter_editbox.setText('Click here to filter the result.')
+    self.filter_editbox.textEdited.connect(self.filterTextEdited)
     self.filter_editbox.focusInEvent = lambda x: self.filterFocusInEvent()
     self.filter_editbox.focusOutEvent = lambda x: self.filterFocusOutEvent()
     self.right_group_layout.addWidget(self.filter_editbox)
@@ -123,6 +124,17 @@ class MainWindow(QMainWindow):
     for rom in platform.roms_data: new_table.addItem(rom)
     self.right_group_layout.removeWidget(old_table)
     self.right_group_layout.addWidget(new_table)
+
+
+  def filterTextEdited(self, filter_text: str):
+    filter_text = filter_text.lower()
+    table: MyTableWidget = self.right_group_layout.itemAt(1).widget() if hasattr(self.right_group_layout.itemAt(1), 'widget') else None
+    for i in range(table.rowCount()):
+      rom = table.getRomWidgetItem(i)
+      rom_name = rom.text().lower()
+      if rom_name.find(filter_text) == -1:
+        table.hideRow(i)
+      else: table.showRow(i)
 
   def filterFocusInEvent(self):
     self.filter_editbox.setText('')

@@ -43,5 +43,8 @@ class MyTableWidget(QTableWidget):
     self.setItem(row, 3, MyTableWidgetItem(rom_details['md5']))
     self.setItem(row, 4, MyTableWidgetItem(rom_details['crc32']))
     self.setItem(row, 5, MyTableWidgetItem(rom_details['sha1']))
+  
+  def getRomWidgetItem(self, row: int):
+    return self.item(row, 0)
 
 
