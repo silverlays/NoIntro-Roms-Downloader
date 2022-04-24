@@ -26,12 +26,15 @@ class MainWindow(QMainWindow):
     self.main_widget = QWidget(self)
     self.setCentralWidget(self.main_widget)
     self.main_layout = QHBoxLayout(self.main_widget)
+    self.splitter = QSplitter(Qt.Orientation.Horizontal, self.main_widget)
+    self.main_layout.addWidget(self.splitter)
 
     self.loadStyle()
     self.setupMenu()
     self.setupLeft()
     self.setupRight()
     
+    self.splitter.setSizes([100, 10])
     self.platform_list_widget.setCurrentRow(0)
 
     self.show()
@@ -73,8 +76,7 @@ class MainWindow(QMainWindow):
     self.setMenuBar(self.menubar)
 
   def setupLeft(self):
-    self.left_group = QGroupBox('Platform', self)
-    self.left_group.setFixedWidth(int(PROGRAM_WIDTH / 4))
+    self.left_group = QGroupBox('Platforms List', self)
     
     self.left_group_layout = QVBoxLayout(self.left_group)
     self.left_group_layout.setContentsMargins(0, 0, 0, 0)
@@ -93,15 +95,15 @@ class MainWindow(QMainWindow):
     self.left_group_layout.addWidget(self.platform_list_widget)
     self.left_group.setLayout(self.left_group_layout)
 
-    self.main_layout.addWidget(self.left_group, alignment=Qt.AlignmentFlag.AlignLeft)
+    self.splitter.addWidget(self.left_group)
   
   def setupRight(self):
-    self.right_group = QGroupBox('Games')
+    self.right_group = QGroupBox('Platform Details')
     self.right_group_layout = QVBoxLayout(self.right_group)
     self.right_group_layout.setContentsMargins(0, 0, 0, 0)
     self.right_group_layout.addWidget(self.filterWidget(self.right_group))
     self.right_group_layout.addWidget(self.statusWidget(self.right_group))
-    self.main_layout.addWidget(self.right_group, stretch=1)
+    self.splitter.addWidget(self.right_group)
   
   def filterWidget(self, parent: QWidget) -> QWidget:
     widget = QWidget(parent)
@@ -116,37 +118,38 @@ class MainWindow(QMainWindow):
     return widget
   
   def statusWidget(self, parent: QWidget) -> QGroupBox:
-    widget = QGroupBox('Download details', parent)
-    layout = QGridLayout(widget)
+    self.download_details_group = QGroupBox('Download Details', parent)
+    layout = QGridLayout(self.download_details_group)
     
-    download_label = QLabel('Current opération:', widget)
+    download_label = QLabel('Current opération:', self.download_details_group)
     download_label.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
     layout.addWidget(download_label, 0, 0)
     
     self.status_download_label = QLabel('N/A')
     self.status_download_label.setAlignment(Qt.AlignmentFlag.AlignLeft)
-    layout.addWidget(self.status_download_label, 0, 1)
+    self.status_download_label.setStyleSheet('margin-left: 100px')
+    layout.addWidget(self.status_download_label, 0, 0)
 
-    self.status_progressbar = QProgressBar(widget)
-    self.status_progressbar.setValue(50)
+    self.status_progressbar = QProgressBar(self.download_details_group)
+    self.status_progressbar.setValue(0)
     layout.addWidget(self.status_progressbar, 1, 0, 1, 3)
 
     layout.addWidget(QLabel(''), 2, 0, 1, 3)
 
-    button1 = QPushButton('Download', widget)
+    button1 = QPushButton('Download', self.download_details_group)
     button1.setCursor(Qt.CursorShape.PointingHandCursor)
     button1.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Maximum)
     layout.addWidget(button1, 3, 0)
-    button2 = QPushButton('Stop', widget)
+    button2 = QPushButton('Stop', self.download_details_group)
     button2.setCursor(Qt.CursorShape.PointingHandCursor)
     button2.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Maximum)
     layout.addWidget(button2, 3, 1)
-    button3 = QPushButton('Pause', widget)
+    button3 = QPushButton('Pause', self.download_details_group)
     button3.setCursor(Qt.CursorShape.PointingHandCursor)
     button3.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Maximum)
     layout.addWidget(button3, 3, 2)
 
-    return widget
+    return self.download_details_group
 
   def platformSelectedChanged(self, current: QListWidgetItem, previous: QListWidgetItem):
     if previous:

@@ -1,6 +1,7 @@
 import typing
 from PyQt6.QtCore import *
-from PyQt6.QtWidgets import QWidget, QTableWidget, QTableWidgetItem
+from PyQt6.QtGui import *
+from PyQt6.QtWidgets import *
 
 from constants import size_format
 
@@ -19,20 +20,28 @@ class MyTableWidget(QTableWidget):
     self.setEditTriggers(self.EditTrigger.NoEditTriggers)
     
     for i in range(0, 6):  self.insertColumn(i)
-    self.setHorizontalHeaderItem(0, QTableWidgetItem('GAME'))
+    game_item = QTableWidgetItem('GAME')
+    game_item.setSizeHint(QSize(self.maximumWidth(), 10))
+    self.setHorizontalHeaderItem(0, game_item)
     self.setHorizontalHeaderItem(1, QTableWidgetItem('SIZE'))
     self.setHorizontalHeaderItem(2, QTableWidgetItem('FORMAT'))
     self.setHorizontalHeaderItem(3, QTableWidgetItem('MD5'))
     self.setHorizontalHeaderItem(4, QTableWidgetItem('CRC32'))
     self.setHorizontalHeaderItem(5, QTableWidgetItem('SHA1'))
     
-    self.setColumnWidth(0, 420) # GAME
+    self.setColumnWidth(0, 555) # GAME
     self.setColumnWidth(1, 70) # SIZE
     self.setColumnWidth(2, 60) # FORMAT
     self.setColumnWidth(3, 70) # MD5
     self.setColumnWidth(4, 70) # CRC32
     self.setColumnWidth(5, 70) # SHA1
     self.verticalHeader().hide()
+
+  def resizeEvent(self, event: QResizeEvent):
+    if event.oldSize().width() > -1:
+      game_column_width = self.columnWidth(0)
+      new_width = game_column_width + (event.size().width() - event.oldSize().width())
+      self.setColumnWidth(0, new_width)
 
   def addItem(self, rom_details: dict) -> None:
     row = self.rowCount()
