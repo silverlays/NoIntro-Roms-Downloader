@@ -1,0 +1,38 @@
+* {
+  background-color: #222222;
+  color: white;
+  font-family: 'Helvetica';
+}
+
+QWidget {
+  font-size: 14px;
+}
+QGroupBox {
+  font-weight: bold;
+  border: 1px solid #be0000;
+  margin-top: 10px;
+  padding: 5px;
+}
+QGroupBox::title {
+  background-color: #be0000;
+  top: -10px;
+  left: 5px;
+}
+QListWidget {
+  border: none;
+  show-decoration-selected: 1;
+  outline: none;
+}
+QListWidget::item::selected {
+  border: 1px solid #be0000;
+  color: #ffa0a0;
+}
+QTableWidget {
+  outline: none;
+  border: none;
+  margin-top: 10px;
+}
+QHeaderView::section, QTableCornerButton::section {
+  background-color: #be0000;
+  color: #ffa0a0;
+}
