@@ -4,7 +4,7 @@ Download "datted" ROMs from NoIntro fullsets on Internet Archive (archive.org). 
 
 If you want to see changes since the beginning of this project, see [CHANGELOG.md](https://github.com/silverlays/NoIntro-Roms-Downloader/blob/master/CHANGELOG.md).
 
-![NoIntro Roms Downloader screenshot](https://i.ibb.co/FxvMgFy/No-Intro-Roms-Downloader.jpg)
+<!-- ![NoIntro Roms Downloader screenshot](https://i.ibb.co/FxvMgFy/No-Intro-Roms-Downloader.jpg) -->
 
 ## Supported platforms on 11/01/21
 - [Atari 2600](https://archive.org/details/nointro.atari-2600)
@@ -33,7 +33,7 @@ If you want to see changes since the beginning of this project, see [CHANGELOG.m
 git clone https://github.com/silverlays/NoIntro-Roms-Downloader
 cd ./NoIntro-Roms-Downloader
 pip install -r requirements.txt
-pyinstaller -Fn "NoIntro Roms Downloader" -i "app.ico" main.pyw
+pyinstaller -Fn "NoIntro Roms Downloader" -i "app.ico" app.pyw
 ```
 Your executable will be in **./dist** folder (you can remove **./build** folder after generation)
 
@@ -42,5 +42,5 @@ Your executable will be in **./dist** folder (you can remove **./build** folder 
 git clone https://github.com/silverlays/NoIntro-Roms-Downloader
 cd ./NoIntro-Roms-Downloader
 pip install -r requirements.txt
-py main.pyw
+py app.pyw
 ```
