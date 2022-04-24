@@ -69,7 +69,6 @@ class MainWindow(QMainWindow):
 
     self.setMenuBar(self.menubar)
 
-  
   def setupLeft(self):
     self.left_group = QGroupBox('Platform', self)
     self.left_group.setFixedWidth(int(PROGRAM_WIDTH / 3))
@@ -122,19 +121,20 @@ class MainWindow(QMainWindow):
     old_table = self.right_group_layout.itemAt(1).widget() if hasattr(self.right_group_layout.itemAt(1), 'widget') else None
     new_table = MyTableWidget()
     for rom in platform.roms_data: new_table.addItem(rom)
-    self.right_group_layout.removeWidget(old_table)
+    if old_table: self.right_group_layout.removeWidget(old_table)
     self.right_group_layout.addWidget(new_table)
-
 
   def filterTextEdited(self, filter_text: str):
     filter_text = filter_text.lower()
     table: MyTableWidget = self.right_group_layout.itemAt(1).widget() if hasattr(self.right_group_layout.itemAt(1), 'widget') else None
-    for i in range(table.rowCount()):
-      rom = table.getRomWidgetItem(i)
-      rom_name = rom.text().lower()
-      if rom_name.find(filter_text) == -1:
-        table.hideRow(i)
-      else: table.showRow(i)
+    
+    if table:
+      for i in range(table.rowCount()):
+        rom = table.getRomWidgetItem(i)
+        rom_name = rom.text().lower()
+        if rom_name.find(filter_text) == -1:
+          table.hideRow(i)
+        else: table.showRow(i)
 
   def filterFocusInEvent(self):
     self.filter_editbox.setText('')
