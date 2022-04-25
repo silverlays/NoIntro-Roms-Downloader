@@ -8,7 +8,9 @@ from custom_widgets import MyTableWidget
 from constants import *
 
 
+
 app = QApplication(sys.argv)
+
 
 class MainWindow(QMainWindow):
   platforms_data = []
@@ -27,6 +29,7 @@ class MainWindow(QMainWindow):
     self.setCentralWidget(self.main_widget)
     self.main_layout = QHBoxLayout(self.main_widget)
     self.splitter = QSplitter(Qt.Orientation.Horizontal, self.main_widget)
+    self.splitter.setMinimumWidth(10)
     self.main_layout.addWidget(self.splitter)
 
     self.loadStyle()
@@ -35,6 +38,7 @@ class MainWindow(QMainWindow):
     self.setupRight()
     
     self.splitter.setSizes([100, 10])
+    self.download_details_group.setHidden(True)
     self.platform_list_widget.setCurrentRow(0)
 
     self.show()
@@ -58,11 +62,9 @@ class MainWindow(QMainWindow):
     self.menu_action_help.triggered.connect(lambda: QMessageBox.critical(self, 'TODO!', 'No yet implemented.'))
 
     self.menu_action_about_me = QAction('About Me...', self.menu_help)
-    self.menu_action_about_me.setShortcut(QKeySequence('Ctrl+A'))
     self.menu_action_about_me.triggered.connect(lambda: QMessageBox.critical(self, 'TODO!', 'No yet implemented.'))
 
     self.menu_action_about_qt = QAction('About Qt...', self.menu_help)
-    self.menu_action_about_qt.setShortcut(QKeySequence('Ctrl+Q'))
     self.menu_action_about_qt.triggered.connect(lambda: QMessageBox.aboutQt(self, 'About Qt...'))
     
     self.menu_options.addAction(self.menu_action_settings)
@@ -132,22 +134,18 @@ class MainWindow(QMainWindow):
 
     self.status_progressbar = QProgressBar(self.download_details_group)
     self.status_progressbar.setValue(0)
-    layout.addWidget(self.status_progressbar, 1, 0, 1, 3)
+    layout.addWidget(self.status_progressbar, 1, 0, 1, 2)
 
-    layout.addWidget(QLabel(''), 2, 0, 1, 3)
+    layout.addWidget(QLabel(''), 2, 0, 1, 2)
 
-    button1 = QPushButton('Download', self.download_details_group)
-    button1.setCursor(Qt.CursorShape.PointingHandCursor)
-    button1.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Maximum)
-    layout.addWidget(button1, 3, 0)
-    button2 = QPushButton('Stop', self.download_details_group)
-    button2.setCursor(Qt.CursorShape.PointingHandCursor)
-    button2.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Maximum)
-    layout.addWidget(button2, 3, 1)
-    button3 = QPushButton('Pause', self.download_details_group)
-    button3.setCursor(Qt.CursorShape.PointingHandCursor)
-    button3.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Maximum)
-    layout.addWidget(button3, 3, 2)
+    button_pause = QPushButton('Pause', self.download_details_group)
+    button_pause.setCursor(Qt.CursorShape.PointingHandCursor)
+    button_pause.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Maximum)
+    layout.addWidget(button_pause, 3, 0)
+    button_stop = QPushButton('Stop', self.download_details_group)
+    button_stop.setCursor(Qt.CursorShape.PointingHandCursor)
+    button_stop.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Maximum)
+    layout.addWidget(button_stop, 3, 1)
 
     return self.download_details_group
 
@@ -164,9 +162,17 @@ class MainWindow(QMainWindow):
     if self.table: self.right_group_layout.removeWidget(self.table)
     platform: archive.Platform = self.platforms_data[self.platform_list_widget.currentIndex().row()]
     self.table = MyTableWidget()
+    self.table.action_download.triggered.connect(self.downloadTriggered)
     for rom in platform.roms_data: self.table.addItem(rom)
     self.right_group_layout.insertWidget(1, self.table)
+    self.filter_editbox.clear()
 
   def filterTextEdited(self, filter_text: str):
     if self.table:
-      self.table.showByKeyword(filter_text)
+      self.table.filterByKeyword(filter_text)
+
+  def downloadTriggered(self, checked: bool):
+    download_list = []
+    for x in self.table.selectedItems():
+      if x.column() == 0: download_list.append(f'{self.table.item(x.row(), 0).text()}.{self.table.item(x.row(), 2).text()}')
+    # TODO

@@ -16,8 +16,12 @@ class MyTableWidgetItem(QTableWidgetItem):
 class MyTableWidget(QTableWidget):  
   def __init__(self):
     super().__init__(None)
+    self.setContextMenuPolicy(Qt.ContextMenuPolicy.ActionsContextMenu)
     self.setSelectionBehavior(self.SelectionBehavior.SelectRows)
     self.setEditTriggers(self.EditTrigger.NoEditTriggers)
+
+    self.action_download = QAction(QIcon('./app.ico'), 'Download item(s)', self)
+    self.addAction(self.action_download)
     
     for i in range(0, 6):  self.insertColumn(i)
     game_item = QTableWidgetItem('GAME')
@@ -36,13 +40,13 @@ class MyTableWidget(QTableWidget):
     self.setColumnWidth(4, 70) # CRC32
     self.setColumnWidth(5, 70) # SHA1
     self.verticalHeader().hide()
-
+  
   def resizeEvent(self, event: QResizeEvent):
-    if event.oldSize().width() > -1:
+    if event.oldSize().width() > 0:
       game_column_width = self.columnWidth(0)
       new_width = game_column_width + (event.size().width() - event.oldSize().width())
       self.setColumnWidth(0, new_width)
-
+  
   def addItem(self, rom_details: dict) -> None:
     row = self.rowCount()
     self.insertRow(row)
@@ -57,7 +61,7 @@ class MyTableWidget(QTableWidget):
     for i in range(self.rowCount()):
       self.setRowHidden(i, False)
 
-  def showByKeyword(self, keyword: str):
+  def filterByKeyword(self, keyword: str):
     keyword = keyword.lower()
     for i in range(self.rowCount()):
       rom_name = self.item(i, 0).text().lower()
