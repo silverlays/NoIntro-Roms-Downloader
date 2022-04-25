@@ -3,7 +3,7 @@ from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 
-import archiveApi.archive_platforms as archive
+import archive_api as archive
 from custom_widgets import MyTableWidget
 from constants import *
 
