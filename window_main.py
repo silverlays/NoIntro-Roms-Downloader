@@ -25,21 +25,21 @@ class MainWindow(QMainWindow):
     self.setMinimumHeight(PROGRAM_HEIGHT)
     self.setMinimumWidth(PROGRAM_WIDTH)
 
-    self.main_widget = QWidget(self)
-    self.setCentralWidget(self.main_widget)
-    self.main_layout = QHBoxLayout(self.main_widget)
-    self.splitter = QSplitter(Qt.Orientation.Horizontal, self.main_widget)
-    self.splitter.setMinimumWidth(10)
-    self.main_layout.addWidget(self.splitter)
+    self.widget_main = QWidget(self)
+    self.setCentralWidget(self.widget_main)
+    self.layout_main = QHBoxLayout(self.widget_main)
+    self.splitter_main = QSplitter(Qt.Orientation.Horizontal, self.widget_main)
+    self.splitter_main.setMinimumWidth(10)
+    self.layout_main.addWidget(self.splitter_main)
 
     self.loadStyle()
     self.setupMenu()
     self.setupLeft()
     self.setupRight()
     
-    self.splitter.setSizes([100, 10])
-    self.download_details_group.setHidden(True)
-    self.platform_list_widget.setCurrentRow(0)
+    self.splitter_main.setSizes([100, 10])
+    self.group_download_details.setHidden(True)
+    self.widget_platform_list.setCurrentRow(0)
 
     self.show()
     sys.exit(app.exec())
@@ -78,76 +78,76 @@ class MainWindow(QMainWindow):
     self.setMenuBar(self.menubar)
 
   def setupLeft(self):
-    self.left_group = QGroupBox('Platforms List', self)
+    group_left = QGroupBox('Platforms List', self)
     
-    self.left_group_layout = QVBoxLayout(self.left_group)
-    self.left_group_layout.setContentsMargins(0, 0, 0, 0)
+    layout_left_group = QVBoxLayout(group_left)
+    layout_left_group.setContentsMargins(0, 0, 0, 0)
 
-    self.platform_list_widget = QListWidget(self.left_group)
-    self.platform_list_widget.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-    self.platform_list_widget.currentItemChanged.connect(self.platformSelectedChanged)
+    self.widget_platform_list = QListWidget(group_left)
+    self.widget_platform_list.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+    self.widget_platform_list.currentItemChanged.connect(self.platformSelectedChanged)
 
     for platform in self.platforms_data:
       platform: archive.Platform
-      list_item = QListWidgetItem(self.platform_list_widget)
+      list_item = QListWidgetItem(self.widget_platform_list)
       list_item.setText(f'{platform.platform_name}\n({platform.platform_updated})')
       list_item.setIcon(QIcon(PROGRAM_ICON))
-      self.platform_list_widget.addItem(list_item)
+      self.widget_platform_list.addItem(list_item)
     
-    self.left_group_layout.addWidget(self.platform_list_widget)
-    self.left_group.setLayout(self.left_group_layout)
+    layout_left_group.addWidget(self.widget_platform_list)
+    group_left.setLayout(layout_left_group)
 
-    self.splitter.addWidget(self.left_group)
+    self.splitter_main.addWidget(group_left)
   
   def setupRight(self):
-    self.right_group = QGroupBox('Platform Details')
-    self.right_group_layout = QVBoxLayout(self.right_group)
-    self.right_group_layout.setContentsMargins(0, 0, 0, 0)
-    self.right_group_layout.addWidget(self.filterWidget(self.right_group))
-    self.right_group_layout.addWidget(self.statusWidget(self.right_group))
-    self.splitter.addWidget(self.right_group)
+    group_right = QGroupBox('Platform Details')
+    self.layout_right_group = QVBoxLayout(group_right)
+    self.layout_right_group.setContentsMargins(0, 0, 0, 0)
+    self.layout_right_group.addWidget(self.filterWidget(group_right))
+    self.layout_right_group.addWidget(self.statusWidget(group_right))
+    self.splitter_main.addWidget(group_right)
   
   def filterWidget(self, parent: QWidget) -> QWidget:
-    widget = QWidget(parent)
-    layout = QHBoxLayout(widget)
-    layout.setContentsMargins(5, 5, 5, 5)
-    layout.addWidget(QLabel('Filter:', widget))
+    widget_filter = QWidget(parent)
+    layout_filter = QHBoxLayout(widget_filter)
+    layout_filter.setContentsMargins(5, 5, 5, 5)
+    layout_filter.addWidget(QLabel('Filter:', widget_filter))
     
-    self.filter_editbox = QLineEdit(widget)
-    self.filter_editbox.setClearButtonEnabled(True)
-    self.filter_editbox.textEdited.connect(self.filterTextEdited)
-    layout.addWidget(self.filter_editbox)
-    return widget
+    self.editbox_filter = QLineEdit(widget_filter)
+    self.editbox_filter.setClearButtonEnabled(True)
+    self.editbox_filter.textEdited.connect(self.filterTextEdited)
+    layout_filter.addWidget(self.editbox_filter)
+    return widget_filter
   
   def statusWidget(self, parent: QWidget) -> QGroupBox:
-    self.download_details_group = QGroupBox('Download Details', parent)
-    layout = QGridLayout(self.download_details_group)
+    self.group_download_details = QGroupBox('Download Details', parent)
+    layout_download_details = QGridLayout(self.group_download_details)
     
-    download_label = QLabel('Current opération:', self.download_details_group)
-    download_label.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
-    layout.addWidget(download_label, 0, 0)
+    label_download = QLabel('Current opération:', self.group_download_details)
+    label_download.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
+    layout_download_details.addWidget(label_download, 0, 0)
     
-    self.status_download_label = QLabel('N/A')
-    self.status_download_label.setAlignment(Qt.AlignmentFlag.AlignLeft)
-    self.status_download_label.setStyleSheet('margin-left: 100px')
-    layout.addWidget(self.status_download_label, 0, 0)
+    self.label_status_download = QLabel('N/A')
+    self.label_status_download.setAlignment(Qt.AlignmentFlag.AlignLeft)
+    self.label_status_download.setStyleSheet('margin-left: 100px')
+    layout_download_details.addWidget(self.label_status_download, 0, 0)
 
-    self.status_progressbar = QProgressBar(self.download_details_group)
-    self.status_progressbar.setValue(0)
-    layout.addWidget(self.status_progressbar, 1, 0, 1, 2)
+    self.progressbar_status = QProgressBar(self.group_download_details)
+    self.progressbar_status.setValue(0)
+    layout_download_details.addWidget(self.progressbar_status, 1, 0, 1, 2)
 
-    layout.addWidget(QLabel(''), 2, 0, 1, 2)
+    layout_download_details.addWidget(QLabel(''), 2, 0, 1, 2)
 
-    button_pause = QPushButton('Pause', self.download_details_group)
+    button_pause = QPushButton('Pause', self.group_download_details)
     button_pause.setCursor(Qt.CursorShape.PointingHandCursor)
     button_pause.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Maximum)
-    layout.addWidget(button_pause, 3, 0)
-    button_stop = QPushButton('Stop', self.download_details_group)
+    layout_download_details.addWidget(button_pause, 3, 0)
+    button_stop = QPushButton('Stop', self.group_download_details)
     button_stop.setCursor(Qt.CursorShape.PointingHandCursor)
     button_stop.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Maximum)
-    layout.addWidget(button_stop, 3, 1)
+    layout_download_details.addWidget(button_stop, 3, 1)
 
-    return self.download_details_group
+    return self.group_download_details
 
   def platformSelectedChanged(self, current: QListWidgetItem, previous: QListWidgetItem):
     if previous:
@@ -159,13 +159,13 @@ class MainWindow(QMainWindow):
     font.setBold(True)
     current.setFont(font)
 
-    if self.table: self.right_group_layout.removeWidget(self.table)
-    platform: archive.Platform = self.platforms_data[self.platform_list_widget.currentIndex().row()]
+    if self.table: self.layout_right_group.removeWidget(self.table)
+    platform: archive.Platform = self.platforms_data[self.widget_platform_list.currentIndex().row()]
     self.table = MyTableWidget()
     self.table.action_download.triggered.connect(self.downloadTriggered)
     for rom in platform.roms_data: self.table.addItem(rom)
-    self.right_group_layout.insertWidget(1, self.table)
-    self.filter_editbox.clear()
+    self.layout_right_group.insertWidget(1, self.table)
+    self.editbox_filter.clear()
 
   def filterTextEdited(self, filter_text: str):
     if self.table:

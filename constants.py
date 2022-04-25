@@ -7,7 +7,7 @@ PROGRAM_DEFAULT_STYLE = './default_style.qss'
 
 
 # 
-# STATIC INTERNAL FUNCTIONS (do not edit)
+# STATIC UNIVERSAL FUNCTIONS (do not edit)
 # 
 def size_format(b):
   if b < 1000:

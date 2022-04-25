@@ -23,10 +23,8 @@ class MyTableWidget(QTableWidget):
     self.action_download = QAction(QIcon('./app.ico'), 'Download item(s)', self)
     self.addAction(self.action_download)
     
-    for i in range(0, 6):  self.insertColumn(i)
-    game_item = QTableWidgetItem('GAME')
-    game_item.setSizeHint(QSize(self.maximumWidth(), 10))
-    self.setHorizontalHeaderItem(0, game_item)
+    for i in range(0, 6): self.insertColumn(i)
+    self.setHorizontalHeaderItem(0, QTableWidgetItem('GAME'))
     self.setHorizontalHeaderItem(1, QTableWidgetItem('SIZE'))
     self.setHorizontalHeaderItem(2, QTableWidgetItem('FORMAT'))
     self.setHorizontalHeaderItem(3, QTableWidgetItem('MD5'))
@@ -43,8 +41,8 @@ class MyTableWidget(QTableWidget):
   
   def resizeEvent(self, event: QResizeEvent):
     if event.oldSize().width() > 0:
-      game_column_width = self.columnWidth(0)
-      new_width = game_column_width + (event.size().width() - event.oldSize().width())
+      column_width_game = self.columnWidth(0)
+      new_width = column_width_game + (event.size().width() - event.oldSize().width())
       self.setColumnWidth(0, new_width)
   
   def addItem(self, rom_details: dict) -> None:
