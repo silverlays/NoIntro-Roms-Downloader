@@ -1,4 +1,5 @@
 import os, sys
+from time import sleep
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
@@ -6,6 +7,7 @@ from PyQt6.QtWidgets import *
 import archive_api as archive
 from custom_widgets import MyTableWidget
 from constants import *
+from window_download import DownloadWindow
 
 
 
@@ -38,7 +40,7 @@ class MainWindow(QMainWindow):
     self.setupRight()
     
     self.splitter_main.setSizes([100, 10])
-    self.group_download_details.setHidden(True)
+    self.group_status.setHidden(True)
     self.widget_platform_list.setCurrentRow(0)
 
     self.show()
@@ -120,34 +122,34 @@ class MainWindow(QMainWindow):
     return widget_filter
   
   def statusWidget(self, parent: QWidget) -> QGroupBox:
-    self.group_download_details = QGroupBox('Download Details', parent)
-    layout_download_details = QGridLayout(self.group_download_details)
+    self.group_status = QGroupBox('Download Details', parent)
+    layout_download_details = QGridLayout(self.group_status)
     
-    label_download = QLabel('Current opération:', self.group_download_details)
+    label_download = QLabel('Current opération:', self.group_status)
     label_download.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
     layout_download_details.addWidget(label_download, 0, 0)
     
-    self.label_status_download = QLabel('N/A')
-    self.label_status_download.setAlignment(Qt.AlignmentFlag.AlignLeft)
-    self.label_status_download.setStyleSheet('margin-left: 100px')
-    layout_download_details.addWidget(self.label_status_download, 0, 0)
+    self.label_status = QLabel('N/A')
+    self.label_status.setAlignment(Qt.AlignmentFlag.AlignLeft)
+    self.label_status.setStyleSheet('margin-left: 100px')
+    layout_download_details.addWidget(self.label_status, 0, 0)
 
-    self.progressbar_status = QProgressBar(self.group_download_details)
+    self.progressbar_status = QProgressBar(self.group_status)
     self.progressbar_status.setValue(0)
     layout_download_details.addWidget(self.progressbar_status, 1, 0, 1, 2)
 
     layout_download_details.addWidget(QLabel(''), 2, 0, 1, 2)
 
-    button_pause = QPushButton('Pause', self.group_download_details)
+    button_pause = QPushButton('Pause', self.group_status)
     button_pause.setCursor(Qt.CursorShape.PointingHandCursor)
     button_pause.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Maximum)
     layout_download_details.addWidget(button_pause, 3, 0)
-    button_stop = QPushButton('Stop', self.group_download_details)
+    button_stop = QPushButton('Stop', self.group_status)
     button_stop.setCursor(Qt.CursorShape.PointingHandCursor)
     button_stop.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Maximum)
     layout_download_details.addWidget(button_stop, 3, 1)
 
-    return self.group_download_details
+    return self.group_status
 
   def platformSelectedChanged(self, current: QListWidgetItem, previous: QListWidgetItem):
     if previous:
@@ -175,4 +177,17 @@ class MainWindow(QMainWindow):
     download_list = []
     for x in self.table.selectedItems():
       if x.column() == 0: download_list.append(f'{self.table.item(x.row(), 0).text()}.{self.table.item(x.row(), 2).text()}')
-    # TODO
+    if len(download_list) > 0:
+      dialog_download = DownloadWindow(self, download_list)
+      dialog_download.exec()
+      
+      if dialog_download.is_ok and len(dialog_download.download_list) > 0:
+        self.group_status.setHidden(False)
+        self.progressbar_status.setMaximum(len(dialog_download.download_list))
+
+        for i in range(len(dialog_download.download_list)):
+          self.label_status.setText(dialog_download.download_list[i])
+          sleep(1) ## Replace by DownloadWorker
+          self.progressbar_status.setValue(i + 1)
+        
+        self.group_status.setHidden(True)

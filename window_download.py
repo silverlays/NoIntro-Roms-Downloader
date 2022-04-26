@@ -36,7 +36,7 @@ class DownloadWindow(QDialog):
     widget_scrollarea.setLayout(layout_widget_scrollarea)
     scrollarea.setWidget(widget_scrollarea)
     layout_main.addWidget(scrollarea)
-    layout_main.addWidget(self.butonsWidget(self))
+    layout_main.addWidget(self.buttonsWidget(self))
 
     self.setLayout(layout_main)
     self.show()
