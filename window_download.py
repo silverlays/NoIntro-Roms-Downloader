@@ -61,7 +61,7 @@ class DownloadWindow(QDialog):
     
     return widget_item
   
-  def butonsWidget(self, parent: QWidget) -> QWidget:
+  def buttonsWidget(self, parent: QWidget) -> QWidget:
     widget = QWidget(parent)
     layout = QHBoxLayout(widget)
 
