@@ -37,7 +37,7 @@ If you want to see changes since the beginning of this project, see [CHANGELOG.m
 - [Sega - Master System - Mark III](https://archive.org/details/nointro.ms-mkiii)
 - [Sega - Mega Drive - Genesis](https://archive.org/details/nointro.md)
 
-## Building (Windows/Linux) (require Python3)
+## Building (Windows) (require Python3)
 ```
 git clone https://github.com/silverlays/NoIntro-Roms-Downloader
 cd ./NoIntro-Roms-Downloader
