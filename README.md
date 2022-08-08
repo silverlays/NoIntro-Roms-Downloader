@@ -1,7 +1,7 @@
 # NoIntro-Roms-Downloader
 ### <i>Here is a sneak peak of what you'll get in the actively developed v2.0 (in Qt!) 😊</i>
 <p align='center'>
-  <a href='https://i.ibb.co/V9n3rjs/mainwindow.jpg'><img src='https://i.ibb.co/V9n3rjs/mainwindow.jpg' width='70%' /></a>
+  <a href='https://i.ibb.co/85Vp2q2/image-2022-08-08-203319176.png'><img src='https://i.ibb.co/85Vp2q2/image-2022-08-08-203319176.png' width='70%' /></a>
 </p>
 <p align='center'>
     <i>More informations coming soon, stay tuned!</i>
