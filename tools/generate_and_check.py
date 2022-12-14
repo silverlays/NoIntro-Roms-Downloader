@@ -118,7 +118,7 @@ def generateCache():
 
 
 def checkCacheExpiration():
-  print("Cheking cache expiration... ", end='')
+  print("Checking cache expiration... ", end='')
   if os.path.exists(CACHE_FILENAME):
     cache_mdate = os.path.getmtime(CACHE_FILENAME)
     cache_mdate = datetime.fromtimestamp(cache_mdate)
