@@ -4,7 +4,7 @@
   <a href='https://i.ibb.co/9ZWmBP9/image-2022-12-18-121345339.png'><img src='https://i.ibb.co/9ZWmBP9/image-2022-12-18-121345339.png' width='70%' /></a>
 </p>
 <p align='center'>
-    <i>IT'S COMIN' !! (for real this time 😜). More features, more system, more fun !</i>
+    <i>IT'S COMIN' !! (for real this time 😜). More features, more systems, more fun !</i>
 </p>
 
 
