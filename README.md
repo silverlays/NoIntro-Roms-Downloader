@@ -1,10 +1,10 @@
 # NoIntro-Roms-Downloader
 ### <i>Here is a sneak peak of what you'll get in the actively developed v2.0 (in Qt!) 😊</i>
 <p align='center'>
-  <a href='https://i.ibb.co/85Vp2q2/image-2022-08-08-203319176.png'><img src='https://i.ibb.co/85Vp2q2/image-2022-08-08-203319176.png' width='70%' /></a>
+  <a href='https://i.ibb.co/9ZWmBP9/image-2022-12-18-121345339.png'><img src='https://i.ibb.co/9ZWmBP9/image-2022-12-18-121345339.png' width='70%' /></a>
 </p>
 <p align='center'>
-    <i>More informations coming soon, stay tuned!</i>
+    <i>IT'S COMIN' !! (for real this time 😜). More features, more system, more fun !</i>
 </p>
 
 
