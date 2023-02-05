@@ -17,9 +17,9 @@ import qdarktheme as darktheme
 
 os.environ['DEBUG'] = "4" # 0 = TO DESACTIVATE
                           # 1 = ERROR ONLY
-                          # 2 = ERROR + WARNING
-                          # 3 = ERROR + WARNING + INFO
-                          # 4 = ERROR + WARNING + INFO + DEBUG
+                          # 2 = WARNING
+                          # 3 = INFO
+                          # 4 = DEBUG
 
 
 

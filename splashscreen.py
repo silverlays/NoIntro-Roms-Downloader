@@ -4,11 +4,11 @@ from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 
 # Helpers
-from _debug import *
 from _settings import *
 from _updater import *
 from _platforms import *
 from _tools import *
+from _debug import *
 
 
 
@@ -32,8 +32,12 @@ class SplashScreen(QSplashScreen):
     super().show()
 
     # Check cache validity and presence. If not, build it.
-    if not os.path.exists(PLATFORMS_CACHE_FILENAME) or not Tools.isCacheValid(self.settings.get('cache_expiration')):
+    if not os.path.exists(PLATFORMS_CACHE_FILENAME):
       DebugHelper.print(DebugType.TYPE_WARNING, f"<{PLATFORMS_CACHE_FILENAME}> not found. Download needed.", "SPLASHSCREEN")
+      cache = CacheGenerator(self.app, self)
+      cache.run()
+    elif not Tools.isCacheValid(self.settings.get('cache_expiration')):
+      DebugHelper.print(DebugType.TYPE_WARNING, f"<{PLATFORMS_CACHE_FILENAME}> is outdated. Download needed.", "SPLASHSCREEN")
       cache = CacheGenerator(self.app, self)
       cache.run()
     else:

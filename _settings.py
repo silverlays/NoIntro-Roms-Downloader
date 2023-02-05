@@ -1,15 +1,9 @@
 import os, pickle
 from typing import Any, Tuple
 
-# Constants
-from _constants import *
-
 # Helper
+from _constants import *
 from _debug import *
-
-
-
-SETTINGS_FILE = 'settings.dat'
 
 
 

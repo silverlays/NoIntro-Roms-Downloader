@@ -1,12 +1,8 @@
 import os, pickle
 
 # Helpers
+from _constants import *
 from _debug import *
-
-
-
-PLATFORMS_CACHE_FILENAME = "database_cache.dat"
-
 
 
 class PlatformsHelper():

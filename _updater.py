@@ -1,10 +1,8 @@
 import requests
 
 # Helpers
-from _debug import *
-
-# Constants
 from _constants import *
+from _debug import *
 
 
 class UpdaterHelper():

@@ -7,6 +7,7 @@ from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 
 # Helpers
+from _constants import *
 from _debug import *
 
 
@@ -64,28 +65,6 @@ class CacheGenerator():
       except: pass
 
 
-
-  platforms = [
-    [ 'Nintendo - NES', '7z', 'nointro.nes' ],
-    [ 'Nintendo - SNES', '7z', 'nointro.snes' ],
-    [ 'Nintendo - 64', '7z', 'nointro.n64' ],
-    [ 'Nintendo - 64DD', '7z', 'nointro.n64dd' ],
-    [ 'Nintendo - VirtualBoy', '7z', 'nointro.vb' ],
-    [ 'Nintendo - GameBoy', '7z', 'nointro.gb' ],
-    [ 'Nintendo - GameBoy Color', '7z', 'nointro.gbc' ],
-    [ 'Nintendo - GameBoy Advance', '7z', 'nointro.gba' ],
-    [ 'Sega - Master System / Mark III', '7z', 'nointro.ms-mkiii' ],
-    [ 'Sega - Megadrive / Genesis', '7z', 'nointro.md' ],
-    [ 'Sega - 32X', '7z', 'nointro.32x' ],
-    [ 'Sega - Game Gear', '7z', 'nointro.gg' ],
-    [ 'Atari 2600', '7z', 'nointro.atari-2600' ],
-    [ 'Atari 5200', '7z', 'nointro.atari-5200' ],
-    [ 'Atari 7800', '7z', 'nointro.atari-7800' ],
-    [ 'Sony - Playstation', 'zip', 'non-redump_sony_playstation' ],
-    [ 'Sony - Playstation', '7z', 'redump-sony-playstation-pal'],
-    [ 'Sony - Playstation 2', 'zip', 27, 'PS2_COLLECTION_PART$$' ],
-    [ 'Sony - Playstation 3', 'zip', 8, 'PS3_NOINTRO_EUR_$$' ],
-  ]
   app: QApplication = None
   parent: QSplashScreen = None
   output_cache_json = {}
@@ -101,10 +80,10 @@ class CacheGenerator():
 
   def run(self):
     # Create workers and run them in separate threads (for speed)
-    [self.threads.append(QThread()) for _ in range(len(self.platforms))]
+    [self.threads.append(QThread()) for _ in range(len(ARCHIVE_PLATFORMS_DATA))]
 
-    for i in range(len(self.platforms)):
-      self.workers.append(CacheGenerator.PlatformWorker(self.platforms[i], self.output_cache_json))
+    for i in range(len(ARCHIVE_PLATFORMS_DATA)):
+      self.workers.append(CacheGenerator.PlatformWorker(ARCHIVE_PLATFORMS_DATA[i], self.output_cache_json))
       self.workers[i].moveToThread(self.threads[i])
       self.threads[i].started.connect(self.workers[i].run)
       self.workers[i].finished.connect(self._updateMessage)
@@ -159,7 +138,5 @@ class Tools():
     today_date = datetime.today()
     expiration_date = cache_mdate + timedelta(days=validity_days)
 
-    if expiration_date > today_date:
-      return True
-    else:
-      return False
+    if expiration_date > today_date: return True
+    else: return False
