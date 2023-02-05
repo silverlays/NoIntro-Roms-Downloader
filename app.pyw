@@ -15,8 +15,8 @@ import qdarktheme as darktheme
 
 
 
-os.environ['DEBUG'] = "4" # 0 = TO DESACTIVATE
-                          # 1 = ERROR ONLY
+os.environ['DEBUG'] = "4" # 0 = DISABLE
+                          # 1 = ERROR
                           # 2 = WARNING
                           # 3 = INFO
                           # 4 = DEBUG
@@ -28,7 +28,7 @@ if __name__ == '__main__':
   app = QApplication(sys.argv)
 
   # Load theme and ressources
-  darktheme.setup_theme()
+  darktheme.setup_theme('auto')
   QResource.registerResource('resources.rcc')
 
   # Show the splashscreen and do starting stuff
