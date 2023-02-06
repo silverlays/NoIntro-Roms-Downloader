@@ -1,4 +1,4 @@
-# NoIntro-Roms-Downloader
+# NoIntro-Roms-Downloader v2.0 (Qt)
 Download "datted" ROMs from NoIntro fullsets on Internet Archive ([archive.org](https://archive.org))
 
 ## Development status
