@@ -6,7 +6,7 @@ Download "datted" ROMs from NoIntro fullsets on Internet Archive ([archive.org](
 - Settings are working (more settings must be implemented until release).
 - Browsing, selections, filter and regions are working fine.
 - Download queue is operational but need polish.
-- Menu are almost complete (Settings, About, About Qt completed).
+- Menu is almost complete (Settings, About, About Qt completed).
 - UI is almost finished (minor fixes are required).
 - UI works, but download isn't yet implemented... coming soon.
 
