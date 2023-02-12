@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'd:\Python Projects\NoIntro Roms Downloader (Ui version)\ui\DownloadQueue.ui'
+# Form implementation generated from reading ui file 'd:\Python Projects\NoIntro Roms Downloader\ui\DownloadQueue.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.0
 #
@@ -12,10 +12,40 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_DownloadQueue(object):
     def setupUi(self, DownloadQueue):
         DownloadQueue.setObjectName("DownloadQueue")
-        DownloadQueue.resize(380, 512)
-        self.listWidget = QtWidgets.QListWidget(DownloadQueue)
-        self.listWidget.setGeometry(QtCore.QRect(0, 0, 381, 511))
-        self.listWidget.setObjectName("listWidget")
+        DownloadQueue.resize(380, 459)
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(DownloadQueue)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.lwToDownload = QtWidgets.QListWidget(DownloadQueue)
+        self.lwToDownload.setSelectionRectVisible(True)
+        self.lwToDownload.setObjectName("lwToDownload")
+        self.verticalLayout.addWidget(self.lwToDownload)
+        self.verticalLayout_2.addLayout(self.verticalLayout)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setContentsMargins(0, 0, -1, 0)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.pbDownload = QtWidgets.QPushButton(DownloadQueue)
+        font = QtGui.QFont()
+        font.setBold(True)
+        self.pbDownload.setFont(font)
+        self.pbDownload.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.pbDownload.setAutoDefault(True)
+        self.pbDownload.setObjectName("pbDownload")
+        self.horizontalLayout.addWidget(self.pbDownload)
+        self.pbDelete = QtWidgets.QPushButton(DownloadQueue)
+        self.pbDelete.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.pbDelete.setObjectName("pbDelete")
+        self.horizontalLayout.addWidget(self.pbDelete)
+        self.pbDeleteAll = QtWidgets.QPushButton(DownloadQueue)
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setItalic(True)
+        self.pbDeleteAll.setFont(font)
+        self.pbDeleteAll.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.pbDeleteAll.setObjectName("pbDeleteAll")
+        self.horizontalLayout.addWidget(self.pbDeleteAll)
+        self.verticalLayout_2.addLayout(self.horizontalLayout)
 
         self.retranslateUi(DownloadQueue)
         QtCore.QMetaObject.connectSlotsByName(DownloadQueue)
@@ -23,3 +53,6 @@ class Ui_DownloadQueue(object):
     def retranslateUi(self, DownloadQueue):
         _translate = QtCore.QCoreApplication.translate
         DownloadQueue.setWindowTitle(_translate("DownloadQueue", "Download queue..."))
+        self.pbDownload.setText(_translate("DownloadQueue", "Download"))
+        self.pbDelete.setText(_translate("DownloadQueue", "Delete"))
+        self.pbDeleteAll.setText(_translate("DownloadQueue", "DELETE ALL /!\\"))

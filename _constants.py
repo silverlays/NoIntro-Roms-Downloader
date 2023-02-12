@@ -1,7 +1,10 @@
+import os
+
 VERSION_MAJOR = 2
 VERSION_MINOR = 0
-VERSION_REVISION = 0
+VERSION_REVISION = "0 RC1"
 
+RESOURCES_FILE = os.path.join(os.path.split(__file__)[0], "resources.rcc")
 SETTINGS_FILE = 'settings.dat'
 PLATFORMS_CACHE_FILENAME = "database_cache.dat"
 

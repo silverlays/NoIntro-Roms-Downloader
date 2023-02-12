@@ -8,10 +8,12 @@ from _debug import *
 
 
 class SettingsHelper():
-  full_path = os.path.join(os.path.dirname(__file__), SETTINGS_FILE)
+  full_path = SETTINGS_FILE
   _settings = {
     "cache_expiration": 30,
     "check_updates": True,
+    "download_path": os.getcwd(),
+    "unzip": True,
   }
 
 

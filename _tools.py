@@ -1,6 +1,3 @@
-import os, requests, json, pickle
-from datetime import datetime, timedelta
-
 # Qt
 from PyQt6.QtCore import *
 from PyQt6.QtGui import *
@@ -8,6 +5,8 @@ from PyQt6.QtWidgets import *
 
 # Helpers
 from _constants import *
+from _platforms import PlatformsHelper
+from _settings import SettingsHelper
 from _debug import *
 
 
@@ -47,6 +46,7 @@ class CacheGenerator():
 
 
     def _ProcessPart(self, part_id: str, part_number: int = 1):
+      import requests, json
       try:
         content_request = requests.get(self.url).content
         content_json = json.loads(content_request)
@@ -79,6 +79,8 @@ class CacheGenerator():
 
 
   def run(self):
+    import pickle
+
     # Create workers and run them in separate threads (for speed)
     [self.threads.append(QThread()) for _ in range(len(ARCHIVE_PLATFORMS_DATA))]
 
@@ -118,6 +120,39 @@ class CacheGenerator():
     )
 
 
+
+class RomDownload():
+  platform_name = ""
+  rom_name = ""
+  rom_url = ""
+  rom_format = ""
+
+  def __init__(self, settings: SettingsHelper, platforms: PlatformsHelper, platform: str, rom_index: int) -> None:
+    import requests
+    from urllib.parse import quote
+
+    self.platform_name = platform
+    self.rom_name = platforms.getRomName(platform, rom_index)
+    self.rom_format = platforms.getRom(platform, self.rom_name)['format']
+    self.rom_url = f"https://archive.org/download/{platforms.getRom(platform, self.rom_name)['source_id']}/{quote(self.rom_name)}.{self.rom_format}"
+    DebugHelper.print(DebugType.TYPE_INFO, f"Downloading [{self.platform_name}] {self.rom_name}", "downloader")
+    with open(os.path.join(settings.get('download_path'), f"{self.rom_name}.{self.rom_format}"), "wb") as of:
+      DebugHelper.print(DebugType.TYPE_DEBUG, f"Downloading from [{self.rom_url}]", "downloader")
+      of.write(requests.get(self.rom_url).content)
+
+
+
+class Unzip():
+  def __init__(self, settings: SettingsHelper, filename: str) -> None:
+    from py7zr import SevenZipFile
+    path = settings.get('download_path')
+    full_path = os.path.join(path, filename)
+    DebugHelper.print(DebugType.TYPE_INFO, f"Unzipping [{full_path}]...", "unzip")
+    SevenZipFile(full_path).extractall(path)
+    os.remove(full_path)
+    
+
+
 class Tools():
   def convertSizeToReadable(size: int) -> str:
     if size < 1000:
@@ -133,6 +168,9 @@ class Tools():
 
 
   def isCacheValid(validity_days: int) -> bool:
+    import os
+    from datetime import datetime, timedelta
+
     cache_mdate = os.path.getmtime("database_cache.dat")
     cache_mdate = datetime.fromtimestamp(cache_mdate)
     today_date = datetime.today()

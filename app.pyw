@@ -4,6 +4,7 @@ from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 
 # Helpers
+from _constants import *
 from _debug import *
 
 # Main class
@@ -29,7 +30,7 @@ if __name__ == '__main__':
 
   # Load theme and ressources
   darktheme.setup_theme('auto')
-  QResource.registerResource('resources.rcc')
+  QResource.registerResource(RESOURCES_FILE)
 
   # Show the splashscreen and do starting stuff
   splash = SplashScreen(app)

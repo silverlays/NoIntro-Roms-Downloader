@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'd:\Python Projects\NoIntro Roms Downloader (Ui version)\ui\DownloadPane.ui'
+# Form implementation generated from reading ui file 'd:\Python Projects\NoIntro Roms Downloader\ui\DownloadPane.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.0
 #
@@ -65,4 +65,4 @@ class Ui_DownloadPane(object):
         self.label_3.setText(_translate("DownloadPane", "Actual job :"))
         self.l_job.setText(_translate("DownloadPane", "N/A"))
         self.l_progress.setText(_translate("DownloadPane", "0/0"))
-        self.l_speed.setText(_translate("DownloadPane", "0Kb/s"))
+        self.l_speed.setText(_translate("DownloadPane", "NaN Kb/s"))

@@ -3,11 +3,11 @@ from PyQt6.QtGui import *
 from PyQt6.QtWidgets import *
 
 # Helpers
-from _debug import *
 from _settings import SettingsHelper
 from _updater import UpdaterHelper
 from _platforms import PlatformsHelper
-from _tools import Tools
+from _tools import Tools, RomDownload, Unzip
+from _debug import *
 
 # Ui
 from ui.ui_MainWindow import Ui_MainWindow as Ui
@@ -41,7 +41,7 @@ class MainWindow(QMainWindow, Ui):
     self.settings = settings
     self.updater = updater
     self.platforms = platforms
-    self.optionsDialog = Options(self)
+    self.optionsDialog = Options(self, settings)
     self.aboutDialog = About(self)
     self.download_pane = DownloadPane(self.gb_downloads)
     self.download_queue = DownloadQueue(self, self.platforms)
@@ -53,15 +53,19 @@ class MainWindow(QMainWindow, Ui):
     self.gb_downloads.setLayout(self.download_pane.parent_gb_layout)
 
     # Setup statusbar
-    self.statusbar_label = QLabel()
-    self.statusbar.addPermanentWidget(self.statusbar_label)
-
+    self.statusbar_update = QLabel()
+    self.statusbar.addPermanentWidget(self.statusbar_update)
     self.statusbar_queue = QLabel()
-    self.statusbar_queue.mousePressEvent = lambda x: self.download_queue.show()
+    self.statusbar_queue.setMinimumWidth(150)
+    self.statusbar_queue.mousePressEvent = self.download_queue.show
+    self.statusbar.addWidget(self.statusbar_queue)
+    
+    # Setup download queue
+    self.download_queue.updatedListEvent = self._updateStatusbarQueueText
+    self.download_queue.downloadClickedEvent = self._launchRomsDownload
 
     # Setup menu events
-    self.optionsDialog.accepted.connect(self._on_options_accepted)
-    self.actionShowOptions.triggered.connect(self._on_options_action_triggered)
+    self.actionShowOptions.triggered.connect(lambda: self.optionsDialog.show())
     self.actionExit.triggered.connect(lambda: self.close())
     self.actionGet_help.triggered.connect(lambda: QDesktopServices.openUrl(QUrl('https://github.com/silverlays/NoIntro-Roms-Downloader/wiki')))
     self.actionCheck_for_updates.triggered.connect(lambda: self._checkUpdates())
@@ -69,14 +73,14 @@ class MainWindow(QMainWindow, Ui):
     self.actionAbout_Qt.triggered.connect(lambda: QMessageBox.aboutQt(self, 'About Qt...'))
     
     # Setup other events
-    self.lw_platforms.itemClicked.connect(self._on_listwidget_selection_changed)
-    self.tw_romsList.customContextMenuRequested.connect(self._on_romlist_click)
+    self.lw_platforms.itemClicked.connect(self._onListwidgetSelectionChanged)
+    self.tw_romsList.customContextMenuRequested.connect(self._onRomslistRightClick)
     self.le_filter.textChanged.connect(self._filterTableWidget)
     self.pb_eur.toggled.connect(self._filterTableWidget)
     self.pb_usa.toggled.connect(self._filterTableWidget)
     self.pb_jpn.toggled.connect(self._filterTableWidget)
     self.pb_all.toggled.connect(self._filterTableWidget)
-    self.gb_downloads.clicked.connect(self._on_download_pane_clicked)
+    self.gb_downloads.clicked.connect(self._onDownloadPaneClicked)
 
     # Startup task(s)
     self._checkUpdates(at_launch=True)
@@ -97,16 +101,16 @@ class MainWindow(QMainWindow, Ui):
         ### TODO: IMPLEMENT SOFTWARE UPDATE
         ###
       else:
-        self.statusbar_label.setText("New version available!")
+        self.statusbar_update.setText("New version available!")
 
     update_available = self.updater.updateAvailable() if self.settings.get('check_updates') else False
     
     if at_launch and self.settings.get('check_updates') and update_available: Ask()
-    elif at_launch and self.settings.get('check_updates') and not update_available: self.statusbar_label.setText("You are up-to-date.")
+    elif at_launch and self.settings.get('check_updates') and not update_available: self.statusbar_update.setText("You are up-to-date.")
     elif not at_launch and update_available: Ask()
     elif not at_launch and not update_available:
       QMessageBox.information(self, "Update", "You are up-to-date.")
-      self.statusbar_label.setText("You are up-to-date.")
+      self.statusbar_update.setText("You are up-to-date.")
 
 
   def _loadPlatformsList(self):
@@ -131,13 +135,45 @@ class MainWindow(QMainWindow, Ui):
       self.tw_romsList.hideRow(i) if self.tw_romsList.item(i, 0) not in to_keep else self.tw_romsList.showRow(i)
 
 
+  def _updateStatusbarQueueText(self):
+    count = self.download_queue.getTotalCount()
+    self.statusbar_queue.setText(f"<a href='#'>{count} item(s) in queue</a>") if count > 0 else self.statusbar_queue.setText("")
+
+
   def _addToQueue(self):
     self.download_queue.add(self.platforms.getPlatformName(self.lw_platforms.selectedIndexes()[0].row()), [row.row() for row in self.tw_romsList.selectedIndexes() if row.column() == 0])
-    self.statusbar_queue.setText(f"<a href='#'>{self.download_queue.getTotalCount()} item(s) in queue</a>")
-    self.statusbar.addWidget(self.statusbar_queue)
+    self._updateStatusbarQueueText()
+  
+
+  def _downloadNowContextMenu(self):
+    self._addToQueue()
+    self._launchRomsDownload()
 
 
-  def _on_listwidget_selection_changed(self, item: QListWidgetItem):
+  def _launchRomsDownload(self):
+    DebugHelper.print(DebugType.TYPE_INFO, "Download started...")
+    self.gb_downloads.setChecked(True)
+    self.download_pane.show()
+    total_count = self.download_queue.getTotalCount()
+    self.download_pane.pb_progress.setMaximum(total_count)
+    self.download_pane.pb_progress.setValue(0)
+    for platform in self.download_queue.queue_dict:
+      for i in range(len(self.download_queue.queue_dict[platform])):
+        rom_name = self.platforms.getRomName(platform, self.download_queue.queue_dict[platform][0])
+        rom_index = self.download_queue.queue_dict[platform][0]
+        self.download_pane.l_job.setText(f"[{platform}] {rom_name}")
+        self.download_pane.l_progress.setText(f"{i}/{total_count}")
+        self.repaint()
+        RomDownload(self.settings, self.platforms, platform, rom_index)
+        if self.settings.get('unzip'): Unzip(self.settings, f"{rom_name}.{self.platforms.getRom(platform, rom_name)['format']}")
+        self.download_queue.remove(platform, rom_index)
+        self.download_pane.pb_progress.setValue(i+1)
+        self.repaint()
+    self.download_pane.l_job.setText("N/A")
+    self.download_pane.l_progress.setText(f"{i+1}/{total_count}")
+
+
+  def _onListwidgetSelectionChanged(self, item: QListWidgetItem):
     platform_name = item.text()
 
     # Clear the table
@@ -177,25 +213,7 @@ class MainWindow(QMainWindow, Ui):
     self._filterTableWidget()
 
 
-  def _on_options_action_triggered(self):
-    # Bind the values from settings to the form
-    cache_expiration = self.settings.get('cache_expiration')
-    cache_expiration = str(cache_expiration) if cache_expiration != 0 else "<none>"
-    self.optionsDialog.cb_cache_expiration.setCurrentText(cache_expiration)
-    self.optionsDialog.cb_checkupdates.setChecked(self.settings.get('check_updates'))
-    self.optionsDialog.show()
-
-
-  def _on_options_accepted(self):
-    # Bind the values from the form to settings
-    cache_expiration = self.optionsDialog.cb_cache_expiration.currentText()
-    cache_expiration = int(cache_expiration) if cache_expiration != "<none>" else 0
-    self.settings.update(['cache_expiration', cache_expiration])
-    self.settings.update(['check_updates', self.optionsDialog.cb_checkupdates.isChecked()])
-    self.settings.write()
-
-
-  def _on_download_pane_clicked(self):
+  def _onDownloadPaneClicked(self):
     if self.gb_downloads.isChecked():
       self.download_pane.show()
       self.gb_downloads.setFixedHeight(100)
@@ -204,10 +222,13 @@ class MainWindow(QMainWindow, Ui):
       self.gb_downloads.setFixedHeight(20)
 
 
-  def _on_romlist_click(self, point: QPoint):
+  def _onRomslistRightClick(self, point: QPoint):
     menu = QMenu(self.tw_romsList)
     
-    add_to_queue = QAction('Add to queue')
+    add_to_queue = QAction("Add to Queue")
     add_to_queue.triggered.connect(lambda: self._addToQueue())
+
+    download_now = QAction("Download Now")
+    download_now.triggered.connect(lambda: self._downloadNowContextMenu())
     
-    menu.exec([add_to_queue], QCursor.pos(), parent=self.tw_romsList)
+    menu.exec([add_to_queue, download_now], QCursor.pos(), parent=self.tw_romsList)
