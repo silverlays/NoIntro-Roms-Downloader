@@ -1,19 +1,14 @@
 # NoIntro-Roms-Downloader
-### <i>Here is a sneak peak of what you'll get in the actively developed v2.0 (in Qt!) 😊</i>
-<p align='center'>
-  <a href='https://i.ibb.co/8Y9nGkD/image-2022-12-18-121345339.png'><img src='https://i.ibb.co/8Y9nGkD/image-2022-12-18-121345339.png' width='70%' /></a>
-</p>
-<p align='center'>
-    <i>IT'S COMIN' !! (for real this time 😜). More features, more systems, more fun !</i>
-</p>
+### Time has finally come !!</i> v2.0.0 RC1 is up **[HERE](https://github.com/silverlays/NoIntro-Roms-Downloader/releases/tag/v2.0-RC1)** (Carefully read the release description to know how to use it).
+<br/>
+
+![NoIntro Roms Downloader UI](https://i.ibb.co/8Y9nGkD/image-2022-12-18-121345339.png)
 
 
 ## Description
 Download "datted" ROMs from NoIntro fullsets on Internet Archive (archive.org). Lastest binaries are available [here](https://github.com/silverlays/NoIntro-Roms-Downloader/releases/latest) or you can just clone the repo and launch it under Windows and Linux. (see below)
 
 If you want to see changes since the beginning of this project, see [CHANGELOG.md](https://github.com/silverlays/NoIntro-Roms-Downloader/blob/master/CHANGELOG.md).
-
-![NoIntro Roms Downloader screenshot](https://i.ibb.co/FxvMgFy/No-Intro-Roms-Downloader.jpg)
 
 ## Supported platforms on 11/01/21
 - [Atari 2600](https://archive.org/details/nointro.atari-2600)
