@@ -3,12 +3,14 @@ Download "datted" ROMs from NoIntro fullsets on Internet Archive ([archive.org](
 
 ## Development status
 - Cache generation is fully operational.
-- Settings are working (more settings must be implemented until release).
-- Browsing, selections, filter and regions are working fine.
+- Settings are working perfectly including: Cache expiration in days; Download folder; Decompress after download ; Check for updates
+- Browsing, selections, filter and regions work fine.
 - Download queue is operational but need polish.
-- Menu is complete.
-- UI is almost finished (minor fixes are required).
-- UI works, but download isn't yet implemented... coming soon.
+- Menu is complete for now.
+- UI is almost finished (minor fixes needed).
+- Download queue is fully operational.
+- Download work (no download speed at the moment)
+- Auto update not working until release
 
 ## Beta testing
 If you want to test the actual status of the development by yourself, follow the instructions below:
