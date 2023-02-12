@@ -34,7 +34,7 @@ If you want to see changes since the beginning of this project, see [CHANGELOG.m
 ## Beta testing
 If you want to test the actual status of the development by yourself, follow the instructions below:
 ```
-git clone https://github.com/silverlays/NoIntro-Roms-Downloader -b v2.0-Qt
+git clone https://github.com/silverlays/NoIntro-Roms-Downloader
 cd ./NoIntro-Roms-Downloader
 python -m venv .venv
 .venv\Scripts\activate.bat  # FOR WINDOWS
