@@ -9,7 +9,7 @@ SETTINGS_FILE = 'settings.dat'
 PLATFORMS_CACHE_FILENAME = "database_cache.dat"
 
 ARCHIVE_PLATFORMS_DATA = [
-    [ 'Nintendo - NES', '7z', 'nointro.nes' ],
+    [ 'Nintendo - NES', '7z', 'nointro.nes-headered' ],
     [ 'Nintendo - SNES', '7z', 'nointro.snes' ],
     [ 'Nintendo - 64', '7z', 'nointro.n64' ],
     [ 'Nintendo - 64DD', '7z', 'nointro.n64dd' ],
