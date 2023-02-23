@@ -5,7 +5,7 @@
 ![NoIntro Roms Downloader UI](https://i.ibb.co/8Y9nGkD/image-2022-12-18-121345339.png)
 
 ## Description
-Download "datted" ROMs direcyly from the NoIntro libraries on [Internet Archive](https://archive.org). Lastest binaries are available [here](https://github.com/silverlays/NoIntro-Roms-Downloader/releases/latest) or you can just clone the repo and launch it under Windows and Linux. (see below)
+Download "datted" ROMs directly from the NoIntro libraries on [Internet Archive](https://archive.org). Lastest binaries are available [here](https://github.com/silverlays/NoIntro-Roms-Downloader/releases/latest) or you can just clone the repo and launch it under Windows and Linux. (see below)
 
 If you want to see changes since the beginning of this project, see [CHANGELOG.md](https://github.com/silverlays/NoIntro-Roms-Downloader/blob/master/CHANGELOG.md).
 
