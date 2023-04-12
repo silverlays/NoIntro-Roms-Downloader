@@ -39,7 +39,7 @@ python3 -m venv .venv
 
 ### Step two
 * For Windows: ```.venv\Scripts\activate.bat```
-* For Linux/MacOS: ```source .venv\bin\activate```
+* For Linux/MacOS: ```source .venv/bin/activate```
 
 ### Step three
 ```
