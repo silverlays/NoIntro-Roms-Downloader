@@ -5,7 +5,7 @@
 ![NoIntro Roms Downloader UI](https://i.ibb.co/8Y9nGkD/image-2022-12-18-121345339.png)
 
 ## Description
-Download "datted" ROMs from NoIntro fullsets on Internet Archive (archive.org). Lastest binaries are available [here](https://github.com/silverlays/NoIntro-Roms-Downloader/releases/latest) or you can just clone the repo and launch it under Windows and Linux. (see below)
+Download "datted" ROMs directly from the NoIntro libraries on [Internet Archive](https://archive.org). Lastest binaries are available [here](https://github.com/silverlays/NoIntro-Roms-Downloader/releases/latest) or you can just clone the repo and launch it under Windows and Linux. (see below)
 
 If you want to see changes since the beginning of this project, see [CHANGELOG.md](https://github.com/silverlays/NoIntro-Roms-Downloader/blob/master/CHANGELOG.md).
 
@@ -29,24 +29,22 @@ If you want to see changes since the beginning of this project, see [CHANGELOG.m
 
 *NB: Playstation 1, 2 and 3 are ready to use, but because of the size of files, multi-connections must be implemented before, sorry.*
 
-## Beta testing
-If you want to test the actual status of the development by yourself, follow the instructions below:
-
+## Launch without PyInstaller (Windows/Linux/MacOS)
 ### Step one
 ```
 git clone https://github.com/silverlays/NoIntro-Roms-Downloader
 cd ./NoIntro-Roms-Downloader
-python -m venv .venv
+python3 -m venv .venv
 ```
 
 ### Step two
 * For Windows: ```.venv\Scripts\activate.bat```
-* For Linux/MacOS: ```source .venv\bin\activate```
+* For Linux/MacOS: ```source .venv/bin/activate```
 
 ### Step three
 ```
 pip install -r requirements.txt
-python app.pyw
+python3 app.pyw
 ```
 
 ## Feedback
