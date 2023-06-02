@@ -24,6 +24,7 @@ ARCHIVE_PLATFORMS_DATA = [
     [ 'Atari 2600', '7z', 'nointro.atari-2600' ],
     [ 'Atari 5200', '7z', 'nointro.atari-5200' ],
     [ 'Atari 7800', '7z', 'nointro.atari-7800' ],
+    [ 'NEC - PC Engine - TurboGrafx 16' , '7z', 'nointro.tg-16' ]
     # [ 'Sony - Playstation', 'zip', 'non-redump_sony_playstation' ],
     # [ 'Sony - Playstation', '7z', 'redump-sony-playstation-pal'],
     # [ 'Sony - Playstation 2', 'zip', 27, 'PS2_COLLECTION_PART$$' ],
