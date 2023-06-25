@@ -2,11 +2,10 @@
 ![NoIntro Roms Downloader UI](https://i.ibb.co/8Y9nGkD/image-2022-12-18-121345339.png)
 
 ## NEWS ##
-### 06/26/2023: Good news! I may have finally found a viable alternative to using the "archive.org" site. If all goes to plan, you'll have a TON of new systems available, and download speeds will be GREATLY improved. I'll share with you more soon!
-### 02/12/2023: Time has finally come !!</i> v2.0.0 RC1 is up **[HERE](https://github.com/silverlays/NoIntro-Roms-Downloader/releases/tag/v2.0-RC1)** (Carefully read the release description to know how to use it).
-<br/>
+- **06/26/2023**: *Good news! I may have finally found a viable alternative from using the "archive.org" site. If all goes to plan, you'll have a TON of new systems available, and download speeds will be GREATLY improved. I'll share more with you soon!*
+- **02/12/2023**: *Time has finally come !!</i> v2.0.0 RC1 is up **[HERE](https://github.com/silverlays/NoIntro-Roms-Downloader/releases/tag/v2.0-RC1)** (Carefully read the release description to know how to use it).*
 
-## Description
+## DESCRIPTION
 Download "datted" ROMs directly from the NoIntro libraries on [Internet Archive](https://archive.org). Lastest binaries are available [here](https://github.com/silverlays/NoIntro-Roms-Downloader/releases/latest) or you can just clone the repo and launch it under Windows and Linux. (see below)
 
 If you want to see changes since the beginning of this project, see [CHANGELOG.md](https://github.com/silverlays/NoIntro-Roms-Downloader/blob/master/CHANGELOG.md).
