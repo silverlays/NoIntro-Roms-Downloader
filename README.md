@@ -1,6 +1,8 @@
 # NoIntro-Roms-Downloader
 ![NoIntro Roms Downloader UI](https://i.ibb.co/8Y9nGkD/image-2022-12-18-121345339.png)
 
+<center><i><h4>My work is totally free, but if you want to support me anyway, you can do it <a href="https://en.tipeee.com/silverlays">here <img src="https://en.tipeee.com/_static/promo-kit/logos/png/tipeee_jar.png" width="40px" alt="https://en.tipeee.com/silverlays"/></a>. Thank you!🙏</h4></i></center>
+
 ## NEWS ##
 - **06/26/2023**: *Good news! I may have finally found a viable alternative from using the "archive.org" site. If all goes to plan, you'll have a TON of new systems available, and download speeds will be GREATLY improved. I'll share more with you soon!*
 - **02/12/2023**: *Time has finally come !!</i> v2.0.0 RC1 is up **[HERE](https://github.com/silverlays/NoIntro-Roms-Downloader/releases/tag/v2.0-RC1)** (Carefully read the release description to know how to use it).*
