@@ -1,7 +1,6 @@
 # Qt
-from PyQt6.QtCore import *
-from PyQt6.QtGui import *
-from PyQt6.QtWidgets import *
+from PySide6.QtCore import Signal, Qt, QObject, QThread
+from PySide6.QtWidgets import QApplication, QSplashScreen
 
 # Helpers
 from _constants import *
@@ -13,7 +12,7 @@ from _debug import *
 class CacheGenerator():
   class PlatformWorker(QObject):
     platform = []
-    finished = pyqtSignal(str)
+    finished = Signal(str)
 
 
     def __init__(self, platform: list, output_cache_json: dict):
@@ -144,11 +143,11 @@ class RomDownload():
 
 class Unzip():
   def __init__(self, settings: SettingsHelper, filename: str) -> None:
-    from py7zr import SevenZipFile
+    from zipfile import ZipFile
     path = settings.get('download_path')
     full_path = os.path.join(path, filename)
     DebugHelper.print(DebugType.TYPE_INFO, f"Unzipping [{full_path}]...", "unzip")
-    SevenZipFile(full_path).extractall(path)
+    ZipFile(full_path).extractall(path)
     os.remove(full_path)
     
 

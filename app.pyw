@@ -1,7 +1,6 @@
 import sys, os
-from PyQt6.QtCore import *
-from PyQt6.QtGui import *
-from PyQt6.QtWidgets import *
+from PySide6.QtCore import QResource
+from PySide6.QtWidgets import QApplication
 
 # Helpers
 from _constants import *
@@ -10,10 +9,6 @@ from _debug import *
 # Main class
 from splashscreen import SplashScreen
 from mainwindow import MainWindow
-
-# darktheme package
-import qdarktheme as darktheme
-
 
 
 os.environ['DEBUG'] = "4" # 0 = DISABLE
@@ -27,11 +22,8 @@ os.environ['DEBUG'] = "4" # 0 = DISABLE
 if __name__ == '__main__':
   # Initialize PyQt
   app = QApplication(sys.argv)
-
-  # Load theme and ressources
-  darktheme.setup_theme('auto')
   QResource.registerResource(RESOURCES_FILE)
-
+  
   # Show the splashscreen and do starting stuff
   splash = SplashScreen(app)
   splash.show()

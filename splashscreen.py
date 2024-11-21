@@ -1,7 +1,7 @@
 import os, time
-from PyQt6.QtCore import *
-from PyQt6.QtGui import *
-from PyQt6.QtWidgets import *
+from PySide6.QtCore import Qt
+from PySide6.QtGui import *
+from PySide6.QtWidgets import QSplashScreen
 
 # Helpers
 from _settings import *
@@ -19,7 +19,8 @@ class SplashScreen(QSplashScreen):
 
 
   def __init__(self, app: QApplication):
-    super().__init__(flags=Qt.WindowType.WindowStaysOnTopHint)
+    super().__init__()
+    self.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
 
     self.app = app
     self.settings = SettingsHelper()

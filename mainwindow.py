@@ -1,6 +1,6 @@
-from PyQt6.QtCore import *
-from PyQt6.QtGui import *
-from PyQt6.QtWidgets import *
+from PySide6.QtCore import Qt, QUrl, QPoint
+from PySide6.QtGui import QDesktopServices, QIcon, QAction, QCursor
+from PySide6.QtWidgets import QGroupBox, QVBoxLayout, QWidget, QMainWindow, QLabel, QMessageBox, QListWidgetItem, QTableWidgetItem, QMenu
 
 # Helpers
 from _settings import SettingsHelper

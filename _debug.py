@@ -1,5 +1,5 @@
 import os
-from PyQt6.QtCore import qDebug
+from PySide6.QtCore import qDebug
 from enum import Enum
 from typing import Literal
 
