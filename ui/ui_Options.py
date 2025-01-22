@@ -13,7 +13,7 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.setWindowModality(QtCore.Qt.WindowModality.ApplicationModal)
-        Dialog.resize(583, 234)
+        Dialog.resize(639, 234)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/app.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         Dialog.setWindowIcon(icon)

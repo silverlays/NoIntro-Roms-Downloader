@@ -9,7 +9,7 @@ SETTINGS_FILE = 'settings.dat'
 PLATFORMS_CACHE_FILENAME = "database_cache.dat"
 
 ARCHIVE_PLATFORMS_DATA = [
-    [ 'Nintendo - NES', '7z', 'nointro.nes' ],
+    [ 'Nintendo - NES', '7z', 'nointro.nes-headered' ],
     [ 'Nintendo - SNES', '7z', 'nointro.snes' ],
     [ 'Nintendo - 64', '7z', 'nointro.n64' ],
     [ 'Nintendo - 64DD', '7z', 'nointro.n64dd' ],
@@ -24,6 +24,7 @@ ARCHIVE_PLATFORMS_DATA = [
     [ 'Atari 2600', '7z', 'nointro.atari-2600' ],
     [ 'Atari 5200', '7z', 'nointro.atari-5200' ],
     [ 'Atari 7800', '7z', 'nointro.atari-7800' ],
+    [ 'NEC - PC Engine - TurboGrafx 16' , '7z', 'nointro.tg-16' ]
     # [ 'Sony - Playstation', 'zip', 'non-redump_sony_playstation' ],
     # [ 'Sony - Playstation', '7z', 'redump-sony-playstation-pal'],
     # [ 'Sony - Playstation 2', 'zip', 27, 'PS2_COLLECTION_PART$$' ],

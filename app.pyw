@@ -28,9 +28,9 @@ if __name__ == '__main__':
   splash = SplashScreen(app)
   splash.show()
 
-  # Initialize main window
-  mainWindow = MainWindow(splash.settings, splash.updater, splash.platforms)
-  mainWindow.show()
+    # Initialize main window
+    mainWindow = MainWindow(splash.settings, splash.updater, splash.platforms)
+    mainWindow.show()
 
-  # Execute then shutdown
-  sys.exit(app.exec())
+    # Execute then shutdown
+    sys.exit(app.exec())

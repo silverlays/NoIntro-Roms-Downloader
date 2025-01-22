@@ -67,7 +67,7 @@ class MainWindow(QMainWindow, Ui):
     # Setup menu events
     self.actionShowOptions.triggered.connect(lambda: self.optionsDialog.show())
     self.actionExit.triggered.connect(lambda: self.close())
-    self.actionGet_help.triggered.connect(lambda: QDesktopServices.openUrl(QUrl('https://github.com/silverlays/NoIntro-Roms-Downloader/wiki')))
+    self.actionGet_help.triggered.connect(lambda: QDesktopServices.openUrl(QUrl('https://github.com/silverlays/NoIntro-Roms-Downloader/wiki/Getting-started')))
     self.actionCheck_for_updates.triggered.connect(lambda: self._checkUpdates())
     self.actionAbout.triggered.connect(self.aboutDialog.show)
     self.actionAbout_Qt.triggered.connect(lambda: QMessageBox.aboutQt(self, 'About Qt...'))
