@@ -1,3 +1,0 @@
-﻿py7zr
-PyQt6
-requests
