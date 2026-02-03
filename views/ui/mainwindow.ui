@@ -10,9 +10,6 @@
     <height>768</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Form</string>
-  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
@@ -64,7 +61,7 @@
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="pixmap">
-          <pixmap resource="../app.qrc">:/assets/close.svg</pixmap>
+          <pixmap resource="../../app.qrc">:/assets/close.svg</pixmap>
          </property>
          <property name="scaledContents">
           <bool>false</bool>
@@ -72,25 +69,6 @@
         </widget>
        </item>
       </layout>
-     </widget>
-    </item>
-    <item>
-     <widget class="QFrame" name="centralFrame">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="autoFillBackground">
-       <bool>true</bool>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::Shape::NoFrame</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Shadow::Raised</enum>
-      </property>
      </widget>
     </item>
    </layout>
@@ -112,6 +90,7 @@
   </widget>
  </widget>
  <resources>
+  <include location="../../app.qrc"/>
   <include location="../app.qrc"/>
  </resources>
  <connections/>

@@ -19,6 +19,7 @@ from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
     QMainWindow, QMenuBar, QSizePolicy, QSpacerItem,
     QStatusBar, QVBoxLayout, QWidget)
 import app_rc
+import app_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -61,19 +62,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.topFrame)
 
-        self.centralFrame = QFrame(self.centralwidget)
-        self.centralFrame.setObjectName(u"centralFrame")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.MinimumExpanding)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.centralFrame.sizePolicy().hasHeightForWidth())
-        self.centralFrame.setSizePolicy(sizePolicy2)
-        self.centralFrame.setAutoFillBackground(True)
-        self.centralFrame.setFrameShape(QFrame.Shape.NoFrame)
-        self.centralFrame.setFrameShadow(QFrame.Shadow.Raised)
-
-        self.verticalLayout.addWidget(self.centralFrame)
-
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -90,6 +78,6 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Form", None))
+        pass
     # retranslateUi
 
