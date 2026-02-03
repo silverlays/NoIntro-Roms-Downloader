@@ -14,8 +14,8 @@ VERSION_PATCH = 0
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
-    # stylesheet = QFile(":/app.css")
-    stylesheet = QFile("app.css")
+    # stylesheet = QFile(":/app.qss")
+    stylesheet = QFile("app.qss")
 
     if stylesheet.open(QFile.OpenModeFlag.ReadOnly):
         window.setStyleSheet(stylesheet.readAll().toStdString())

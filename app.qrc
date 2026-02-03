@@ -2,7 +2,7 @@
     <qresource prefix="/">
         <file>assets/close.svg</file>
         <file>assets/app_icon.svg</file>
-        <file>app.css</file>
         <file>assets/down_arrow.svg</file>
+        <file>app.qss</file>
     </qresource>
 </RCC>
