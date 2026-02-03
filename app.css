@@ -1,0 +1,29 @@
+QMainWindow#MainWindow {
+  background-color: qlineargradient(
+    spread: pad,
+    x1: 0,
+    y1: 0,
+    x2: 0,
+    y2: 1,
+    stop: 0 rgba(0, 0, 40, 255),
+    stop: 1 rgba(0, 0, 0, 255)
+  );
+}
+
+QWidget {
+  background-color: transparent;
+}
+
+#stepTitleLabel,
+#stepSubtitleLabel {
+  font-family: "Consolas", "DejaVu Sans Mono", "Courier New", monospace;
+  font-weight: bold;
+}
+
+#stepTitleLabel {
+  font-size: 48pt;
+}
+
+#stepSubtitleLabel {
+  font-size: 24pt;
+}
