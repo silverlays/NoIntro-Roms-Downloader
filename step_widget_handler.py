@@ -19,5 +19,6 @@ class StepTemplate(QWidget, Ui_StepTemplate):
             step_instance = step_class()
             self.stepTitleLabel.setText(f"Step {self.step_index}")
             self.stepSubtitleLabel.setText(step_instance.subtitle)
+            self.stepFrame.setLayout(step_instance.layout())
 
         return self.layout()
