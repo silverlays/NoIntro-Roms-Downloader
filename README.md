@@ -1,3 +1,8 @@
+> [!IMPORTANT]
+> 🚧 **The project is undergoing a total overhaul: a modern version, rebuilding from scratch, is actively being developed.**
+
+![Status](https://img.shields.io/badge/Status-Rebuilding_from_scratch-orange?style=for-the-badge&logo=github)
+
 # NoIntro-Roms-Downloader
 ![NoIntro Roms Downloader UI](https://github.com/user-attachments/assets/db73e725-460e-4f35-96c6-7558477400a4)
 
