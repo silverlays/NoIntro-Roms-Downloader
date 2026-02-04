@@ -1,2 +1,2 @@
 from .mainwindow import MainWindow
-from .components.settings_view import SettingsView
+from .download_folder_view import DownloadFolderView

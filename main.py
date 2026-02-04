@@ -17,7 +17,10 @@ if __name__ == "__main__":
     app.setApplicationVersion(config.VERSION_STRING)
     app.setWindowIcon(QIcon(":/assets/app_icon.svg"))
 
-    stylesheet = QFile(":/app.qss")
+    # FIXME Direct call of QSS only for debug, DON'T keep it for deployment.
+
+    # stylesheet = QFile(":/app.qss")
+    stylesheet = QFile("app.qss")
     if stylesheet.open(QFile.OpenModeFlag.ReadOnly):
         app.setStyleSheet(stylesheet.readAll().toStdString())
 

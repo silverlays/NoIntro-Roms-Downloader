@@ -9,5 +9,5 @@ class SettingsData:
 
 class Settings:
     def __init__(self):
-        # TODO Write settings code
+        # TODO Write settings code.
         pass

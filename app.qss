@@ -1,147 +1,36 @@
-QMainWindow#MainWindow {
-  background-color: qlineargradient(
-    spread: pad,
-    x1: 0,
-    y1: 0,
-    x2: 0,
-    y2: 1,
-    stop: 0 rgba(0, 0, 40, 255),
-    stop: 1 rgba(0, 0, 0, 255)
-  );
-}
-
-QLabel {
-  color: #e0e0e0;
-}
-
-QPushButton {
-  background-color: #1a1a4a;
-  color: white;
-  border: 1px solid #3a3a8a;
-  border-radius: 3px;
-  padding: 8px 16px;
-  font-size: 18pt;
-}
-
-QPushButton:hover {
-  background-color: #2a2a6a;
-  border: 1px solid #4a4aaa;
-}
-
-QPushButton:pressed {
-  background-color: #0a0a2a;
-}
-
-QLineEdit {
-  background-color: #050515;
-  color: #ffffff;
-  border: 1px solid #2a2a5a;
-  border-radius: 3px;
-  padding: 5px;
-  selection-background-color: #3a3a8a;
-}
-
-QProgressBar {
-  border: 1px solid #3a3a8a;
-  border-radius: 3px;
-  text-align: center;
-  color: white;
-  background-color: #050515;
-}
-
-QProgressBar::chunk {
-  background-color: qlineargradient(
-    x1: 0,
-    y1: 0,
-    x2: 1,
-    y2: 0,
-    stop: 0 #3a3a8a,
-    stop: 1 #6a6aca
-  );
-}
-
-QFrame#stepFrame {
-  border: none;
-  margin-top: 40px;
-}
-
 QWidget {
-  background-color: transparent;
-  font-family: "Consolas", "DejaVu Sans Mono", "Courier New", monospace;
+    font-family: "Segoe UI", "Ubuntu", "Helvetica", "Arial", sans-serif;
 }
 
-#stepTitleLabel,
-#stepSubtitleLabel {
-  font-weight: bold;
+QWidget#topWidget {
+    border-width: 1px;
+    border-color: white;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: solid;
+    border-left-style: none;
 }
 
-#stepTitleLabel {
-  font-size: 48pt;
+QWidget#viewWidget {
+    
 }
 
-#stepSubtitleLabel {
-  font-size: 24pt;
+QWidget#navigationWidget {
+
 }
 
-QComboBox {
-  border: 1px solid #3a3a8a;
-  border-radius: 3px;
-  padding: 1px 18px 1px 3px;
-  min-width: 6em;
-  font-size: 24pt;
-  color: white;
-  background-color: #1a1a4a;
+QPushButton#closeButton {
+    background-color: transparent;
+    icon-size: 36pt;
 }
 
-QComboBox:editable {
-  background: #050515;
-  text-align: center;
+QLabel#pageTitleLabel {
+    font-family: "Consolas", "DejaVu Sans Mono", "Courier New", monospace;
+    font-size: 24pt;
+    font-weight: bold;
 }
 
-QComboBox:!editable,
-QComboBox::drop-down:editable {
-  background: #1a1a4a;
-}
-
-/* QComboBox gets the "on" state when the popup is open */
-QComboBox:!editable:on,
-QComboBox::drop-down:editable:on {
-  background: #2a2a6a;
-}
-
-QComboBox:on {
-  /* shift the text when the popup opens */
-  padding-top: 3px;
-  padding-left: 4px;
-}
-
-QComboBox::drop-down {
-  subcontrol-origin: padding;
-  subcontrol-position: top right;
-  width: 15px;
-
-  border-left-width: 1px;
-  border-left-color: #3a3a8a;
-  border-left-style: solid; /* just a single line */
-  border-top-right-radius: 3px; /* same radius as the QComboBox */
-  border-bottom-right-radius: 3px;
-}
-
-QComboBox::down-arrow {
-  image: url(:/assets/down_arrow.svg);
-  width: 20px;
-  height: 20px;
-}
-
-QComboBox::down-arrow:on {
-  /* shift the arrow when popup is open */
-  top: 1px;
-  left: 1px;
-}
-
-QComboBox QAbstractItemView {
-  border: 2px solid #3a3a8a;
-  selection-background-color: #3a3a8a;
-  background-color: #050515;
-  color: white;
+QLabel#viewDescriptionLabel {
+    font-size: 16pt;
+    text-align: left;
 }
