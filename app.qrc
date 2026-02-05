@@ -4,5 +4,7 @@
         <file>assets/app_icon.svg</file>
         <file>assets/down_arrow.svg</file>
         <file>app.qss</file>
+        <file>assets/next_page.svg</file>
+        <file>assets/previous_page.svg</file>
     </qresource>
 </RCC>

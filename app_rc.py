@@ -6,175 +6,51 @@
 from PySide6 import QtCore
 
 qt_resource_data = b"\
-\x00\x00\x0ak\
+\x00\x00\x02\xa4\
 Q\
-MainWindow#MainW\
-indow {\x0d\x0a  backg\
-round-color: qli\
-neargradient(\x0d\x0a \
-   spread: pad,\x0d\
-\x0a    x1: 0,\x0d\x0a   \
- y1: 0,\x0d\x0a    x2:\
- 0,\x0d\x0a    y2: 1,\x0d\
-\x0a    stop: 0 rgb\
-a(0, 0, 40, 255)\
-,\x0d\x0a    stop: 1 r\
-gba(0, 0, 0, 255\
-)\x0d\x0a  );\x0d\x0a}\x0d\x0a\x0d\x0aQL\
-abel {\x0d\x0a  color:\
- #e0e0e0;\x0d\x0a}\x0d\x0a\x0d\x0a\
-QPushButton {\x0d\x0a \
- background-colo\
-r: #1a1a4a;\x0d\x0a  c\
-olor: white;\x0d\x0a  \
-border: 1px soli\
-d #3a3a8a;\x0d\x0a  bo\
-rder-radius: 3px\
-;\x0d\x0a  padding: 8p\
-x 16px;\x0d\x0a  font-\
-size: 18pt;\x0d\x0a}\x0d\x0a\
-\x0d\x0aQPushButton:ho\
-ver {\x0d\x0a  backgro\
-und-color: #2a2a\
-6a;\x0d\x0a  border: 1\
-px solid #4a4aaa\
-;\x0d\x0a}\x0d\x0a\x0d\x0aQPushBut\
-ton:pressed {\x0d\x0a \
- background-colo\
-r: #0a0a2a;\x0d\x0a}\x0d\x0a\
-\x0d\x0aQLineEdit {\x0d\x0a \
- background-colo\
-r: #050515;\x0d\x0a  c\
-olor: #ffffff;\x0d\x0a\
-  border: 1px so\
-lid #2a2a5a;\x0d\x0a  \
-border-radius: 3\
-px;\x0d\x0a  padding: \
-5px;\x0d\x0a  selectio\
-n-background-col\
-or: #3a3a8a;\x0d\x0a}\x0d\
-\x0a\x0d\x0aQProgressBar \
-{\x0d\x0a  border: 1px\
- solid #3a3a8a;\x0d\
-\x0a  border-radius\
-: 3px;\x0d\x0a  text-a\
-lign: center;\x0d\x0a \
- color: white;\x0d\x0a\
-  background-col\
-or: #050515;\x0d\x0a}\x0d\
-\x0a\x0d\x0aQProgressBar:\
-:chunk {\x0d\x0a  back\
-ground-color: ql\
-ineargradient(\x0d\x0a\
-    x1: 0,\x0d\x0a    \
-y1: 0,\x0d\x0a    x2: \
-1,\x0d\x0a    y2: 0,\x0d\x0a\
-    stop: 0 #3a3\
-a8a,\x0d\x0a    stop: \
-1 #6a6aca\x0d\x0a  );\x0d\
-\x0a}\x0d\x0a\x0d\x0aQFrame#ste\
-pFrame {\x0d\x0a  bord\
-er: none;\x0d\x0a  mar\
-gin-top: 40px;\x0d\x0a\
-}\x0d\x0a\x0d\x0aQWidget {\x0d\x0a\
-  background-col\
-or: transparent;\
-\x0d\x0a  font-family:\
- \x22Consolas\x22, \x22De\
-jaVu Sans Mono\x22,\
- \x22Courier New\x22, \
-monospace;\x0d\x0a}\x0d\x0a\x0d\
-\x0a#stepTitleLabel\
-,\x0d\x0a#stepSubtitle\
-Label {\x0d\x0a  font-\
-weight: bold;\x0d\x0a}\
-\x0d\x0a\x0d\x0a#stepTitleLa\
-bel {\x0d\x0a  font-si\
-ze: 48pt;\x0d\x0a}\x0d\x0a\x0d\x0a\
-#stepSubtitleLab\
-el {\x0d\x0a  font-siz\
-e: 24pt;\x0d\x0a}\x0d\x0a\x0d\x0aQ\
-ComboBox {\x0d\x0a  bo\
-rder: 1px solid \
-#3a3a8a;\x0d\x0a  bord\
-er-radius: 3px;\x0d\
-\x0a  padding: 1px \
-18px 1px 3px;\x0d\x0a \
- min-width: 6em;\
-\x0d\x0a  font-size: 2\
-4pt;\x0d\x0a  color: w\
-hite;\x0d\x0a  backgro\
-und-color: #1a1a\
-4a;\x0d\x0a}\x0d\x0a\x0d\x0aQCombo\
-Box:editable {\x0d\x0a\
-  background: #0\
-50515;\x0d\x0a  text-a\
-lign: center;\x0d\x0a}\
-\x0d\x0a\x0d\x0aQComboBox:!e\
-ditable,\x0d\x0aQCombo\
-Box::drop-down:e\
-ditable {\x0d\x0a  bac\
-kground: #1a1a4a\
-;\x0d\x0a}\x0d\x0a\x0d\x0a/* QComb\
-oBox gets the \x22o\
-n\x22 state when th\
-e popup is open \
-*/\x0d\x0aQComboBox:!e\
-ditable:on,\x0d\x0aQCo\
-mboBox::drop-dow\
-n:editable:on {\x0d\
-\x0a  background: #\
-2a2a6a;\x0d\x0a}\x0d\x0a\x0d\x0aQC\
-omboBox:on {\x0d\x0a  \
-/* shift the tex\
-t when the popup\
- opens */\x0d\x0a  pad\
-ding-top: 3px;\x0d\x0a\
-  padding-left: \
-4px;\x0d\x0a}\x0d\x0a\x0d\x0aQComb\
-oBox::drop-down \
-{\x0d\x0a  subcontrol-\
-origin: padding;\
-\x0d\x0a  subcontrol-p\
-osition: top rig\
-ht;\x0d\x0a  width: 15\
-px;\x0d\x0a\x0d\x0a  border-\
-left-width: 1px;\
-\x0d\x0a  border-left-\
-color: #3a3a8a;\x0d\
-\x0a  border-left-s\
-tyle: solid; /* \
-just a single li\
-ne */\x0d\x0a  border-\
-top-right-radius\
-: 3px; /* same r\
-adius as the QCo\
-mboBox */\x0d\x0a  bor\
-der-bottom-right\
--radius: 3px;\x0d\x0a}\
-\x0d\x0a\x0d\x0aQComboBox::d\
-own-arrow {\x0d\x0a  i\
-mage: url(:/asse\
-ts/down_arrow.sv\
-g);\x0d\x0a  width: 20\
-px;\x0d\x0a  height: 2\
-0px;\x0d\x0a}\x0d\x0a\x0d\x0aQComb\
-oBox::down-arrow\
-:on {\x0d\x0a  /* shif\
-t the arrow when\
- popup is open *\
-/\x0d\x0a  top: 1px;\x0d\x0a\
-  left: 1px;\x0d\x0a}\x0d\
-\x0a\x0d\x0aQComboBox QAb\
-stractItemView {\
-\x0d\x0a  border: 2px \
-solid #3a3a8a;\x0d\x0a\
-  selection-back\
-ground-color: #3\
-a3a8a;\x0d\x0a  backgr\
-ound-color: #050\
-515;\x0d\x0a  color: w\
-hite;\x0d\x0a}\x0d\x0a\
+Widget {\x0d\x0a    fo\
+nt-family: \x22Sego\
+e UI\x22, \x22Ubuntu\x22,\
+ \x22Helvetica\x22, \x22A\
+rial\x22, sans-seri\
+f;\x0d\x0a}\x0d\x0a\x0d\x0aQWidget\
+#topWidget {\x0d\x0a  \
+  border-width: \
+1px;\x0d\x0a    border\
+-color: white;\x0d\x0a\
+    border-top-s\
+tyle: none;\x0d\x0a   \
+ border-right-st\
+yle: none;\x0d\x0a    \
+border-bottom-st\
+yle: solid;\x0d\x0a   \
+ border-left-sty\
+le: none;\x0d\x0a}\x0d\x0a\x0d\x0a\
+QWidget#viewWidg\
+et {\x0d\x0a    \x0d\x0a}\x0d\x0a\x0d\
+\x0aQWidget#navigat\
+ionWidget {\x0d\x0a\x0d\x0a}\
+\x0d\x0a\x0d\x0aQPushButton#\
+closeButton {\x0d\x0a \
+   background-co\
+lor: transparent\
+;\x0d\x0a    icon-size\
+: 36pt;\x0d\x0a}\x0d\x0a\x0d\x0aQL\
+abel#pageTitleLa\
+bel {\x0d\x0a    font-\
+family: \x22Consola\
+s\x22, \x22DejaVu Sans\
+ Mono\x22, \x22Courier\
+ New\x22, monospace\
+;\x0d\x0a    font-size\
+: 24pt;\x0d\x0a    fon\
+t-weight: bold;\x0d\
+\x0a}\x0d\x0a\x0d\x0aQLabel#vie\
+wDescriptionLabe\
+l {\x0d\x0a    font-si\
+ze: 16pt;\x0d\x0a    t\
+ext-align: left;\
+\x0d\x0a}\
 \x00\x00\x04p\
 <\
 svg xmlns=\x22http:\
@@ -248,6 +124,177 @@ RX0We2b)\x22 d=\x22M24\
 774-2.028,0-2.80\
 2L30.821,24L24,3\
 0.821z\x22/></svg>\
+\x00\x00\x0a\x89\
+<\
+svg xmlns=\x22http:\
+//www.w3.org/200\
+0/svg\x22 xmlns:xli\
+nk=\x22http://www.w\
+3.org/1999/xlink\
+\x22 width=\x2264\x22 hei\
+ght=\x2264\x22 viewBox\
+=\x220 0 64 64\x22>\x0a  \
+<image id=\x22Calqu\
+e_1\x22 data-name=\x22\
+Calque 1\x22 x=\x227\x22 \
+y=\x226\x22 width=\x2250\x22\
+ height=\x2250\x22 xli\
+nk:href=\x22data:im\
+g/png;base64,iVB\
+ORw0KGgoAAAANSUh\
+EUgAAADIAAAAyCAY\
+AAAAeP4ixAAAG8kl\
+EQVRogc2afVAUZRz\
+Hf7u3t/cKhxC+0Pl\
+GpuSggKTJ6YiIYDW\
+OltPQyzRGlJpkpY5\
+OTVMZTX+UveJL2uv\
+Qi41DNaEkqZCIvPk\
+SgqKZhiVwh2+Id8f\
+d7bF7+zzNHnMEcnv\
+A7V7ynfnN3Nw++/s\
+9n/09z7PPyxIYY5B\
+DR+0o4vQNz/SLVj7\
+W4uSN1xgU3cnhcIb\
+HasG9RkG4w5SEPVp\
+DXjfqFOZJBkVTfBR\
+1JsVAWuWILwmk1oY\
+iDrex8yva2NQ2J4o\
+BgKwhuiiM0ZFt88b\
+QlWl30oekQAUF8ut\
+1fsIPTe6sk+1cEsL\
+wWLDBe4skYLcAtHS\
+iqig9StE21PuJW/8\
+IBFbnwNrPz7lW1lz\
+hUoJ4+oOtUGFqDF3\
+x1BRNQbKecAUsSxC\
+97+svfzAFLdzsz84\
+xKxwczpG/+v2lUxI\
+Fq+I0n2aPVx4dCAI\
+GC7LxFJNzoJVdFKo\
+sBFBhhpEu/SBR88W\
+tRQYE6Q3R6MLUuw2\
+uVxpveqbdBgifChO\
+jqPqXE7Sbp2oI1Pt\
+Cn6Yl1ifOMJjKO+n\
+cdMHGv/a/VHcA3W1\
+QvP1mki4vXkt4/JU\
+kxW5/p8H1ynCBEPS\
+XjX/tvUbXBrHrfkE\
+2nmZyGjs800BI1jC\
+yhnZP0oZTzLODAvm\
+qmTMdaGEXYQxZQqs\
+bZpZ1sJXN+KaFmxU\
+Q5IQD64Uh9jZ27ME\
+oa8c5ZrXwTutdtg/\
+IdxfcT7o4nB2K5kQ\
+TAGvj1FCeEe61dXF\
+qUBLB+XKyOLvgPJP\
+tF6TsBm88bO5KC0V\
+bUhEY8mdqIWeSCqJ\
+UhNeenqSC56eog/Z\
+5xMKmlrbzxn4gP11\
+0L8MhaFIqBQH59+l\
+hzkhlv2tLxvb/b7A\
+S6rq+2v6o8C4RzAt\
+SY0ORNVe4OXIngyY\
+JyJ+pA1M05bd6Uv0\
+DwObpe25OBF9GKiz\
+sPIQgS84+oSIB8mf\
+pwDTSP4Sg4lZOYhy\
+CRDxe3gNyxMKlyg8\
+hNCdxiKqrHGz/g5E\
+cC2N4QvBHCYuj1s7\
+/Oo1UCX1i62wdpAS\
+AKL/MwfpjTuCQHBG\
+JyVMLO8ZRZ9o98YD\
+wI3JBbJutDQzRxsH\
+6ow6ZIHwi0qkmq2c\
+SyLBs90KYdJAySnw\
+k8kLUyg0hTOFRMmW\
+xIyOW6FgtNKeBICw\
+crKuRH8IrTEyhrjj\
+4Ub6xLBh5+8RcHZh\
+Gi0NUCJmo7gwNhLf\
+P41jKwSK9lIy8kKA\
+JCHHYwsHayk5gQwQ\
+B3e+jCIphsVZKH3k\
+oViV67ZCZhXWVIWp\
+OvYVBT3EeaTt0yHu\
+736V/978IA4QcBBe\
+RGOF0KdOEn5u6RP2\
+nGWnYOj8MlCQR0nW\
+NXkW6SYwJq/eJBWl\
+b6xmotHCiMPPupGF\
+Lqh5oYaNAQpxAple\
+QDiEjF4UNiGCty4N\
+gzW92qA4Ak2qk4aN\
+UPVBE8HEC2SgdcZU\
+EDOelPpEuDkNuaWC\
+YBeNoyE8LB+/4JnN\
+GjGEKM4kRUScMv1L\
+NzWFYfcAOVeYBYBa\
+EgzCBkSOmz+6KpP4\
+mMcCh7pFFunVxCHL\
+326DKzIrDjKdhS7q\
+QGXliAsJFiWPoBrJ\
+p5R1mzOM/5Ho63sy\
+U2KGyNQDMBBq2Zhp\
+kyUxMmKItZQRp7V7\
+qYrxLrqz0ZGafDSp\
+bxGHSxtOwJlkrOVZ\
+arKocfAsrDtAuzGN\
+eznYrZEaAqQoAsyx\
+OIykGgaFo4d3qsh6\
+QS2timgERP8g9mrh\
+ZDKuLxWG8UwoJ/k0\
+TVLWmKIUVeu+i8AR\
++FfOoGCMMchrDIli\
+1xwpVzf1hfjrLBB0\
+LEN77+Azd9z5fpO9\
+F8/dLo/5ZdI/2YCj\
+evF0shlVFVvj8hBO\
+uORFccyDYecwJ22q\
+dQftMn6z+LTOGMvt\
+A+hwr1FmR9plv27/\
+sdCNZzgVDpTA1ufv\
+L5Xc8k2wge47m+my\
+ZJkeQrtzU8O2A4Jd\
+QzYtksF9eTAvP7w0\
+hqN8uwcrp6qqzFk1\
+8cYNLgHxwmCWjZHG\
+Cdl9OvLrfuaLf85H\
+8Bww7E42qBjmHYzn\
+s3vGq37c8aNjpr86\
+iJ1ZvPTzi9alj6Pe\
+HS5O6Z7TywzeWjMg\
+Tq2/ADwYaHZh648e\
+OvPrmrhkAcL9owdB\
+q/8xY1fFNyyLz4nV\
+9D0P7gPh+BAJ6ca/\
+tub11zqW3AWb/4mR\
+d8bYlhk/8XRT9YCA\
+QzBcNjOnjEuu6Tgb\
+Jsis5kMI05I8vPRC\
+RvyJJUzUQxJBABP1\
++E2l3HLTllp12Cev\
+8kGSHJGD/0ln6Pdn\
+zwwqSDKRbrJwoyFA\
++rtl3iY39utz+1PE\
+L7llIJiAFCSULpmv\
+LH50TtjtzrNI8iFs\
+G98HAYFR9nY8srXc\
+uLDvFZDRf48YBQOY\
+QXRwcF61syUjQlC5\
+M0pXNHanoCLYusn1\
+4Vnudjzh50T3jvJm\
+b3NrOjb3c4YmxuVA\
+409V9+qpRES6DlrS\
+PGUG1GaMpS5yR/jP\
+pLvVJU3T37FWSAOB\
+fjfHVIiDQcacAAAA\
+ASUVORK5CYII=\x22/>\
+\x0a</svg>\x0a\
 \x00\x00\x02\x14\
 <\
 svg xmlns=\x22http:\
@@ -284,6 +331,181 @@ TpieXV5mAYAFmgpB\
 d/pnD5UAAAAASUVO\
 RK5CYII=\x22/>\x0a</sv\
 g>\x0a\
+\x00\x00\x0a\xcd\
+<\
+svg xmlns=\x22http:\
+//www.w3.org/200\
+0/svg\x22 xmlns:xli\
+nk=\x22http://www.w\
+3.org/1999/xlink\
+\x22 width=\x2264\x22 hei\
+ght=\x2264\x22 viewBox\
+=\x220 0 64 64\x22>\x0a  \
+<image id=\x22Calqu\
+e_1\x22 data-name=\x22\
+Calque 1\x22 x=\x227\x22 \
+y=\x226\x22 width=\x2250\x22\
+ height=\x2250\x22 xli\
+nk:href=\x22data:im\
+g/png;base64,iVB\
+ORw0KGgoAAAANSUh\
+EUgAAADIAAAAyCAY\
+AAAAeP4ixAAAHJEl\
+EQVRogc2ae1BUVRj\
+Av3Pv3ffCgg/UFTC\
+VVBpQgTLFElHQtMn\
+MMXtMDzLLJMuy5zS\
+V6fiHjU0NYmU6NuZ\
+UU/SS1ERQUQOpHAM\
+fmZpiwi6WoO2yj8v\
+eu/ec5mytLY+7wN6\
+7yTfz7cy9597vO7/\
+znce39xxECAE1pMa\
+J405c9qeddUopNo+\
+U2MzjgS6RxPIS0VP\
+zBha1xWhQa4KBaR5\
+qYm0j49j6sf25YxN\
+jGYca/hWB0MpX2oV\
+pBy8KtzZ5sBUAFvT\
+SRInVxDTlWLUHplq\
+1+ydZIoeKCGTvZcl\
+aet43lwJgAvdG6jx\
+UGASfZQ7Q1N6doi+\
+ZNZD9vbfvo9CL7qC\
+OuInxo9N8wYEmIYf\
+0vvV7KiXZgzU1j6U\
+aN2aZkVe24gi1v+7\
+4gBzMlgvixA9O8Ys\
+9IimIEkA7MWvQh4+\
+nGjYVJGt+6FjWEQJ\
+6CvJcHb+owibkRzA\
+GlErJzCTt7rXjDB/\
+2CqQjxEmeMG8e9b5\
+Yd9mfcQ0gglKSHs8\
+df2m8cU26EfmDNzt\
+1LbmudMJLuDdqPSt\
++c0qv/i/V7UZGWdj\
+VKzJNK9MM/8GECiP\
+3+trj3uf7CgSVM07\
+p1TV13pflyrsEef4\
+ov6iuxZ8BNFh9SI9\
+f8ae/cIxf2FWduY4\
+3tjaIE8obr8nA7ok\
+s2N0gQKqFO7VwmOZ\
+QaEG7iNB14v1f+SV\
+9FCIoCzb+yj922E3\
+MoTfbgWw5zRd4BFI\
+QSXfSIIBnx+ihMj8\
+2oM+M0YMWRadbekV\
+S8PGZtge6BKlokRI\
+P2oUcoLNYBPrkaD0\
+8kqKD/joU0IUpOii\
+6yQg6FJm97nS/zZe\
+757KUeBWEzsdUl1e\
+33qMk7ZiTpOl0b3K\
+CBopuNoOO7byAKRV\
+a16/Otc0LmmHpz9j\
+Sv4YTgO10mYnU/sM\
+jdWDiOr+eZGIgLY6\
+D8iYR/FhdGJsHu8Y\
+N1u5L0iM+0LWwRB4\
+Cghgl/XZ7oyjrMDu\
+Bg6IJJtAx6o4VjGH\
+BAbswBYJjhBC4X6n\
+Rd0/yUPWnPMzkAIx\
+ZdZiDdjGH2mdvKLm\
+SjBi0WmmYJQKw2y7\
+CaAsLw2PYLp9JNjO\
+QHs8FnlOrm7UKxJZ\
+h1VYwAGg6YBon5Sr\
+6CSyvcUNlk3xkJiV\
+wsH4inc1AFZ+Ayfw\
+TLf40BgHOUjPUogT\
+dwwzSwPpsOmaQKj7\
+POvwpDJHQaIIB1FT\
+BD/BstRsq7eFhiik\
+MQop921txIkMAj4j\
+GgiVKBJZXu+BAmMh\
+kD9ZA8S3B2SxyX3+\
+4pUEMkSBO7YgE1ec\
+HWHbQBfvDRIbCPJV\
+mUOTHLWAzXTvM0ci\
+HgipI/8DsswmyMHN\
+H6BT54AVi5ACTbYC\
+in+2GSxkw+XcGilB\
+EDIQz65g2ty9yI92\
+JlkVQPNUMU4ZqZZ/\
+85qwPFH3wJGQ6Z2Y\
+ZtxtLatc/IBRiXU5\
+4iO/tIhTX8gAKFkg\
+CyMENMqE/L7rUj4i\
+GAXgnJwZyEuUhqu0\
+iLN3bCj5JmX9C4By\
+TGMPaAq2hotKEvig\
+3FqYlh4corGgFn0i\
+U+yZwmhvZj6snKqb\
+XNBJF08JDVNlEKCx\
+XHomgEEBHuPFDtHW\
+BmQtgrlKDFGLddAt\
+MGxYOQoDCMvUgqBA\
+G7eMmxTMOawzbZHc\
+qG/AUoniGBXLDQHz\
+fKEDhLnUhgJCTZ58\
+YYAv8H8kdoatUmoU\
+uzTKGh2gQoHCnE3w\
+iVivr/UcJ+QSCf6z\
+yrtfvQQS2KUkT5o0\
+xyEJU/QvRJhJ10yC\
+JSCLg/0Cy+7OO7Ot\
+0NUpmDrnOQiGWbHd\
+Cm6DC7NRJ0Re/L7V\
+egNDPQfdlmj4FTL4\
+lmLZa7/WrX/jOEBc\
+EWFzqAF7AEdkMqxL\
+eLiHyStDXVZAZVs4\
+2fZR+b6Sts77GAxt\
++9MAlN4ZLHgybDnt\
+g8TYH+KISCYCZqcb\
+y+mWDztPdBKrtthW\
+OOLHx0a0tm11tWJV\
+9wWhJjJ75bPODAx7\
+NimOubs21+2SaZWG\
+8T+fGFgGGHdFoRZV\
+0R2FO7LuhENDV1/i\
+Fafof6hoMO3cc9VL\
+I2X0sGN/dMd648/G\
+x+qqOBZ1AqKybbdn\
+wh0Macvi8r0+BZCT\
+r6opmWTZ0VSa7Y/X\
+6nPiVqYM1b/eVLnX\
+DEO1bq+6Kf02uvmE\
+PDJzwEGbl11dWHK7\
+3TQCA23rfhqpIWcY\
+w3c+r5vdbkW7uev8\
+QenpgYOm3zsIdRzx\
+3XAOYsjlZptJ1c7r\
+uThCyu9vjAwObavl\
+binY5lrl4PF/Vqsp\
+IjIH58pnZce8sGm8\
+4JPdM6BZ1j0Go1Dq\
+xfst+V0HpT+47MYl\
+OdBCCsryxxr1LZlj\
+euzGekT3CAeFAenr\
+AprxRTPy82nXvvmP\
+eXAmrM0UzCMomjNL\
+/9HBu7Ee3X6et7+l\
+7V7uWkmNOVZekfnt\
+qPXkVR/n8hmYxmWY\
+6vTRRPixB05A3zlC\
+Rn2HaM3kgeyXSuqh\
+28OxQsxRXe64t85R\
+NGGNr9g+9+Jff6vT\
+iWN5HjLTcoENei5F\
+pHdKPa0oaoGkcnag\
+5kzlS//Okgazyg2c\
+A8DehJMW7DrluPAA\
+AAABJRU5ErkJggg=\
+=\x22/>\x0a</svg>\x0a\
 \x00\x02\x98^\
 <\
 svg xmlns=\x22http:\
@@ -10931,10 +11153,19 @@ qt_resource_name = b"\
 \x06\x98\x8e\xa7\
 \x00c\
 \x00l\x00o\x00s\x00e\x00.\x00s\x00v\x00g\
+\x00\x11\
+\x06\xd3EG\
+\x00p\
+\x00r\x00e\x00v\x00i\x00o\x00u\x00s\x00_\x00p\x00a\x00g\x00e\x00.\x00s\x00v\x00g\
+\
 \x00\x0e\
 \x04\xa2\xf1'\
 \x00d\
 \x00o\x00w\x00n\x00_\x00a\x00r\x00r\x00o\x00w\x00.\x00s\x00v\x00g\
+\x00\x0d\
+\x0eK\x17\xc7\
+\x00n\
+\x00e\x00x\x00t\x00_\x00p\x00a\x00g\x00e\x00.\x00s\x00v\x00g\
 \x00\x0c\
 \x07o\x91'\
 \x00a\
@@ -10944,16 +11175,20 @@ qt_resource_name = b"\
 qt_resource_struct = b"\
 \x00\x00\x00\x00\x00\x02\x00\x00\x00\x02\x00\x00\x00\x01\
 \x00\x00\x00\x00\x00\x00\x00\x00\
-\x00\x00\x00\x00\x00\x02\x00\x00\x00\x03\x00\x00\x00\x03\
+\x00\x00\x00\x00\x00\x02\x00\x00\x00\x05\x00\x00\x00\x03\
 \x00\x00\x00\x00\x00\x00\x00\x00\
 \x00\x00\x00\x12\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\
-\x00\x00\x01\x9c#l+\x0d\
-\x00\x00\x00>\x00\x00\x00\x00\x00\x01\x00\x00\x0e\xe3\
+\x00\x00\x01\x9c'\xb3S\xc1\
+\x00\x00\x00f\x00\x00\x00\x00\x00\x01\x00\x00\x11\xa9\
 \x00\x00\x01\x9c!z7\xa3\
-\x00\x00\x00&\x00\x00\x00\x00\x00\x01\x00\x00\x0ao\
+\x00\x00\x00&\x00\x00\x00\x00\x00\x01\x00\x00\x02\xa8\
 \x00\x00\x01\x9c!WD{\
-\x00\x00\x00`\x00\x00\x00\x00\x00\x01\x00\x00\x10\xfb\
+\x00\x00\x00>\x00\x00\x00\x00\x00\x01\x00\x00\x07\x1c\
+\x00\x00\x01\x9c+G\x98}\
+\x00\x00\x00\xa8\x00\x00\x00\x00\x00\x01\x00\x00\x1e\x92\
 \x00\x00\x01\x9c!WDz\
+\x00\x00\x00\x88\x00\x00\x00\x00\x00\x01\x00\x00\x13\xc1\
+\x00\x00\x01\x9c+F;\xfb\
 "
 
 def qInitResources():

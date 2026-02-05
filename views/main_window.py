@@ -93,6 +93,8 @@ class MainWindow(QMainWindow):
         self.view_layout.setContentsMargins(0, 50, 0, 0)
         self.central_layout.addWidget(self.view_widget)
 
+        self.central_layout.addStretch()
+
         # Navigation Widget
         self.navigation_widget = QWidget()
         self.navigation_widget.setObjectName("navigationWidget")
@@ -100,7 +102,19 @@ class MainWindow(QMainWindow):
         self.navigation_widget.setLayout(self.navigation_layout)
         self.central_layout.addWidget(self.navigation_widget)
 
-        ## TODO Navigation buttons
+        ## Previous Navigation Button
+        self.previous_view_button = CustomPushButton()
+        self.previous_view_button.setIcon(QIcon(":/assets/previous_page.svg"))
+        self.previous_view_button.setFlat(True)
+        self.navigation_layout.addWidget(self.previous_view_button)
+
+        self.navigation_layout.addStretch()
+
+        ## Next Navigation Button
+        self.next_view_button = CustomPushButton()
+        self.next_view_button.setIcon(QIcon(":/assets/next_page.svg"))
+        self.next_view_button.setFlat(True)
+        self.navigation_layout.addWidget(self.next_view_button)
 
         # Finalization
         self.setCentralWidget(self.central_widget)

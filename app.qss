@@ -15,8 +15,9 @@ QWidget#viewWidget {
     
 }
 
-QWidget#navigationWidget {
-
+QWidget#navigationWidget QPushButton {
+    background-color: transparent;
+    icon-size: 72pt;
 }
 
 QPushButton#closeButton {
