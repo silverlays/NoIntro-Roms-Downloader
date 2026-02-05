@@ -7,6 +7,7 @@ T = TypeVar("T", bound=QWidget)
 
 
 class ControllerTemplate(QObject, Generic[T]):
+    InvoquePreviousView = Signal()
     InvoqueNextView = Signal()
 
     def __init__(self, view: T):
