@@ -1,2 +1,2 @@
-from .mainwindow import MainWindow
-from .download_folder_view import DownloadFolderView
+from .main_window import MainWindow
+from .downloadFolder_view import DownloadFolderView

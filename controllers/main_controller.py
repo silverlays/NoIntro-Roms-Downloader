@@ -1,12 +1,12 @@
 import config
 
-from PySide6.QtCore import QObject
+from PySide6.QtCore import QObject, Slot
 
 from models import Settings
 from views import MainWindow
 
 
-class WidgetsController(QObject):
+class MainController(QObject):
     def __init__(self):
         super().__init__()
 
@@ -24,9 +24,14 @@ class WidgetsController(QObject):
 
     def load(self):
         # TODO Will be adapted when settings will be implemented.
-        from views import DownloadFolderView
+        from controllers.downloadFolder_controller import DownloadFolderController
 
-        view = DownloadFolderView()
-        self.main_window.title_label.setText(view.title)
-        self.main_window.view_layout.addWidget(view, 0, 0)
+        self.controller = DownloadFolderController()
+        self.controller.InvoqueNextView.connect(self._on_invoke_next_view)
+        self.main_window.view_layout.addWidget(self.controller.View, 0, 0)
+        self.main_window.title_label.setText(self.controller.View.title)
         self.main_window.show()
+
+    @Slot()
+    def _on_invoke_next_view(self):
+        print("Next view invoqued!")

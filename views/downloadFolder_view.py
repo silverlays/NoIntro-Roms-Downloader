@@ -22,12 +22,7 @@ class DownloadFolderView(ViewTemplate):
         ## Download Browse Button
         self.browse_button = CustomPushButton("...")
         self.browse_button.setFixedWidth(40)
-        self.browse_button.clicked.connect(self.on_browse_button_clicked)
         self.download_layout.addWidget(self.browse_button)
 
         # Finalization
         self.main_layout.addWidget(self.download_widget)
-
-    def on_browse_button_clicked(self):
-        # TODO Must complete settings before ending this.
-        QFileDialog.getExistingDirectory(None, "Select the ROM download directory")

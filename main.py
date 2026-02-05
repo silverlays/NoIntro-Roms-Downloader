@@ -5,12 +5,12 @@ from PySide6.QtCore import QFile
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication
 
-from controllers.widgets_controller import WidgetsController
+from controllers import MainController
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    controller = WidgetsController()
+    controller = MainController()
 
     app.setOrganizationName("INFORLAC")
     app.setApplicationName(config.PROGRAM_NAME)
