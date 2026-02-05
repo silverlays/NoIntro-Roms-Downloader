@@ -24,7 +24,6 @@ class MainWindow(QMainWindow):
         self._setupMenuBar()
 
         # Window properties
-        self.setWindowFlags(Qt.WindowType.MSWindowsFixedSizeDialogHint)
         self.resize(1024, 768)
 
         # Window events
