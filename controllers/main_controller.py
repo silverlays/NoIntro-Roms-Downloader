@@ -32,10 +32,15 @@ class MainController(QObject):
         from controllers.downloadFolder_controller import DownloadFolderController
 
         self.controller = DownloadFolderController()
+        self.controller.InvoquePreviousView.connect(self._on_invoke_previous_view)
         self.controller.InvoqueNextView.connect(self._on_invoke_next_view)
         self.main_window.view_layout.addWidget(self.controller.View, 0, 0)
         self.main_window.title_label.setText(self.controller.View.title)
         self.main_window.show()
+
+    @Slot()
+    def _on_invoke_previous_view(self):
+        print("Previous view invoqued!")
 
     @Slot()
     def _on_invoke_next_view(self):
