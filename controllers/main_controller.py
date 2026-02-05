@@ -1,6 +1,7 @@
 import config
 
 from PySide6.QtCore import QObject, Slot
+from PySide6.QtWidgets import QMessageBox
 
 from models import Settings
 from views import MainWindow
@@ -20,6 +21,10 @@ class MainController(QObject):
         )
 
         # Events
+        self.main_window.about_qt_action.triggered.connect(
+            lambda: QMessageBox.aboutQt(self.main_window, "About Qt")
+        )
+        self.main_window.about_urd_action.triggered.connect(self.main_window.aboutURD)
         self.main_window.close_button.clicked.connect(self.main_window.close)
 
     def load(self):

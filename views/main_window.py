@@ -44,15 +44,9 @@ class MainWindow(QMainWindow):
     def _setupMenuBar(self):
         self.menubar = QMenuBar()
 
-        # About Qt Action
+        # About Actions
         self.about_qt_action = QAction("About Qt")
-        self.about_qt_action.triggered.connect(
-            lambda: QMessageBox.aboutQt(self, "About Qt")
-        )
-
-        # About URD Action
         self.about_urd_action = QAction("About Universal Roms Downloader")
-        self.about_urd_action.triggered.connect(self.aboutURD)
 
         self.about_menu = QMenu("About")
         self.about_menu.addAction(self.about_urd_action)
