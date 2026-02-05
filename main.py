@@ -10,20 +10,18 @@ from controllers import MainController
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    controller = MainController()
-
     app.setOrganizationName("INFORLAC")
     app.setApplicationName(config.PROGRAM_NAME)
     app.setApplicationVersion(config.VERSION_STRING)
     app.setWindowIcon(QIcon(":/assets/app_icon.svg"))
 
     # FIXME Direct call of QSS only for debug, DON'T keep it for deployment.
-
     # stylesheet = QFile(":/app.qss")
     stylesheet = QFile("app.qss")
     if stylesheet.open(QFile.OpenModeFlag.ReadOnly):
         app.setStyleSheet(stylesheet.readAll().toStdString())
 
+    controller = MainController()
     controller.load()
 
     sys.exit(app.exec())
