@@ -3,11 +3,12 @@ from pathlib import Path
 
 
 @dataclass
-class SettingsData:
-    download_folder: Path
+class _SettingsData:
+    first_run: bool = True
+    download_folder: Path | None = None
 
 
-class Settings:
+class SettingsModel:
     def __init__(self):
         # TODO Write settings code.
         pass

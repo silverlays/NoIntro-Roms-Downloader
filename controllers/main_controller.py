@@ -3,7 +3,7 @@ import config
 from PySide6.QtCore import QObject, Slot
 from PySide6.QtWidgets import QMessageBox
 
-from models import Settings
+from models import SettingsModel
 from views import MainWindow
 
 
@@ -12,7 +12,7 @@ class MainController(QObject):
         super().__init__()
 
         # Models
-        self.settings = Settings()
+        self.settings = SettingsModel()
 
         ## MainWindow
         self.main_window = MainWindow()

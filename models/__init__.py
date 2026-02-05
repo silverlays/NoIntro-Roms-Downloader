@@ -1,1 +1,1 @@
-from .settings_model import Settings
+from .settings_model import SettingsModel
